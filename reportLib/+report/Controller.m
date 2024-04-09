@@ -1,23 +1,25 @@
-function htmlReport = Controller(callingApp, reportInfo, dataOverview)
+function htmlReport = Controller(varargin)
 
-    global ID_img
-    global ID_tab
-
-    ID_img = 0;
-    ID_tab = 0;
+    [reportInfo, dataOverview, callingApp] = report.inputParser(varargin{:});
+    internalFcn_counterCreation()
     
     % HTML header (style)    
     htmlReport = '';
     if strcmp(reportInfo.Model.Version, 'preview')
         htmlReport = sprintf('%s\n\n', fileread(fullfile(reportInfo.Path.rootFolder, 'Template', 'html_DocumentStyle.txt')));
     end
-    htmlReport = sprintf('%s%s\n\n', htmlReport, fileread(fullfile(reportInfo.Path.rootFolder, 'Template', 'html_DocumentTableStyle.txt')));
+    tableStyleFlag = 1;
 
     % HTML body
     Template = reportInfo.Model.Raw;
     for ii = 1:numel(Template)
-        if strcmp(Template(ii).Type, 'ItemN1') && ~isempty(Template(ii).Data.Children)            
+        if strcmp(Template(ii).Type, 'ItemN1') && ~isempty(Template(ii).Data.Children)
             htmlReport = [htmlReport, report.sourceCode.htmlCreation(Template(ii))];
+
+            if tableStyleFlag
+                htmlReport = sprintf('%s%s\n\n', htmlReport, fileread(fullfile(reportInfo.Path.rootFolder, 'Template', 'html_DocumentTableStyle.txt')));
+                tableStyleFlag = 0;
+            end
 
             NN = 1;
             if Template(ii).Recurrence
@@ -25,7 +27,7 @@ function htmlReport = Controller(callingApp, reportInfo, dataOverview)
             end
     
             for jj = 1:NN
-                reportInfo.Function.Index = num2str(jj);
+                reportInfo.Function.var_Index = num2str(jj);
                 analyzedData = dataOverview(jj);
     
                 % Insere uma quebra de linha, caso exista recorrência no
@@ -50,13 +52,13 @@ function htmlReport = Controller(callingApp, reportInfo, dataOverview)
                             case {'ItemN2', 'ItemN3', 'Paragraph', 'List', 'Footnote'}
                                 for ll = 1:numel(Children.Data)
                                     if ~isempty(Children.Data(ll).Settings)
-                                        Children.Data(ll).String = Fcn_FillWords(reportInfo, analyzedData, Children);
+                                        Children.Data(ll).String = internalFcn_FillWords(reportInfo, analyzedData, callingApp, Children);
                                     end
                                 end
                                 vararginArgument = [];
     
                             case {'Image', 'Table'}
-                                vararginArgument = eval(sprintf('Fcn_%s(reportInfo, analyzedData, Children.Data)', componentType));
+                                vararginArgument = eval(sprintf('internalFcn_%s(reportInfo, analyzedData, callingApp, Children.Data)', componentType));
     
                             otherwise
                                 error('Unexpected type "%s"', componentType)
@@ -65,7 +67,6 @@ function htmlReport = Controller(callingApp, reportInfo, dataOverview)
                         htmlReport = [htmlReport, report.sourceCode.htmlCreation(Children, vararginArgument)];
     
                     catch ME
-                        ME.message
                         msgError = extractAfter(ME.message, 'Configuration file error message: ');
 
                         if ~isempty(msgError)
@@ -110,7 +111,17 @@ end
 
 
 %-------------------------------------------------------------------------%
-function String = Fcn_FillWords(reportInfo, analyzedData, Children)
+function internalFcn_counterCreation()
+    global ID_img
+    global ID_tab
+
+    ID_img = 0;
+    ID_tab = 0;
+end
+
+
+%-------------------------------------------------------------------------%
+function String = internalFcn_FillWords(reportInfo, analyzedData, callingApp, Children)
 
     numberWords = numel(Children.Data.Settings);
     formatWords = repmat({''}, numberWords, 1);
@@ -143,7 +154,7 @@ end
 
 
 %-------------------------------------------------------------------------%
-function imgFullPath = Fcn_Image(reportInfo, analyzedData, imgSettings)
+function imgFullPath = internalFcn_Image(reportInfo, analyzedData, callingApp, imgSettings)
     imgFullPath = '';
     imgOrigin   = imgSettings.Origin;
     imgSource   = imgSettings.Source;
@@ -170,9 +181,8 @@ end
 
 
 %-------------------------------------------------------------------------%
-function Table = Fcn_Table(reportInfo, analyzedData, tableSettings)
+function Table = internalFcn_Table(reportInfo, analyzedData, callingApp, tableSettings)
     Table        = [];
-
     tableOrigin  = tableSettings.Origin;
     tableSource  = tableSettings.Source;
     tableColumns = tableSettings.Columns;

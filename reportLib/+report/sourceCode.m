@@ -7,10 +7,6 @@ classdef (Abstract) sourceCode
     methods (Static = true)
         %-----------------------------------------------------------------%
         function htmlContent = htmlCreation(reportTemplate, varargin)
-        
-            global ID_img
-            global ID_tab
-
             [componentType, componentData, componentIntro, componentError, componentLineBreak] = report.sourceCode.TemplateParser(reportTemplate);
             report.sourceCode.ComponentTypeCheck(componentType)
             [txtClass, txtStyle, tableStyle] = report.sourceCode.Style(componentType);
@@ -37,7 +33,9 @@ classdef (Abstract) sourceCode
                     imgFullPath = varargin{1};
                     
                     if ~isempty(imgFullPath)
+                        global ID_img
                         ID_img = ID_img+1;
+
                         [imgExt, imgString] = report.sourceCode.img2base64(imgFullPath);
                         
                         htmlContent = report.sourceCode.AuxiliarHTMLBlock(htmlContent, 'Introduction', componentIntro);                        
@@ -59,7 +57,9 @@ classdef (Abstract) sourceCode
                     Table = varargin{1};
         
                     if ~isempty(Table)
-                        ID_tab  = ID_tab+1;                        
+                        global ID_tab
+                        ID_tab  = ID_tab+1;
+
                         ROWS    = height(Table);
                         COLUMNS = width(Table);
                         

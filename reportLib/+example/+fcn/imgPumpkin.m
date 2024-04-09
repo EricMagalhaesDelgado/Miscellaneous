@@ -1,4 +1,4 @@
-function imgFullPath = imgPumpkin(reportInfo, analyzedData, componentSettings)
+function imgFullPath = imgPumpkin(reportInfo, analyzedData, callingApp, imgSettings)
     % FIGURA
     fg = uifigure;
     gl = uigridlayout(fg, [1 1], 'BackgroundColor', 'white'); 
@@ -42,6 +42,8 @@ function imgFullPath = imgPumpkin(reportInfo, analyzedData, componentSettings)
     Zstem = repmat(Zcyl*.15,1,numVerts);
 
     Spunkin = surf(ax, Xpunkin,Ypunkin,Zpunkin,'FaceColor','interp','EdgeColor','none');
+    drawnow
+
     colormap(ax, validatecolor({'#da8e26' '#dfc727'},'multiple'));
     Sstem = surface(ax, Xstem,Ystem,Zstem+heightratio^2,'FaceColor','#3d6766','EdgeColor','none');
     Pstem = patch(ax, 'Vertices', [Xstem(end,:)' Ystem(end,:)' Zstem(end,:)'+heightratio^2],...
@@ -60,10 +62,18 @@ function imgFullPath = imgPumpkin(reportInfo, analyzedData, componentSettings)
     camzoom(ax, 1.8)
     lighting(ax, "gouraud")
     material([Spunkin Sstem Pstem],[ .6 .9 .3 2 .6 ])
+    drawnow
+    pause(1)
+    
 
     % ARQUIVO
-    imgFullPath = fullfile(fileparts(fileparts(mfilename("fullpath"))), 'img_internal', 'Pumpkin.png');
-    if ~isfile(imgFullPath)
-        exportgraphics(ax, imgFullPath)
+    if isfield(reportInfo, 'userPath')
+        userPath = reportInfo.userPath;
+    else
+        userPath = tempname;
+        mkdir(userPath)
     end
+
+    imgFullPath = fullfile(userPath, 'Pumpkin.png');
+    exportgraphics(ax, imgFullPath)
 end

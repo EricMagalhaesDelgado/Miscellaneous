@@ -4,7 +4,7 @@ classdef (Abstract) Constants
         %-----------------------------------------------------------------%
         libName       = 'reportLib'
         libRelease    = 'R2024a'
-        libVersion    = '1.00'
+        libVersion    = '0.01'
     end
 
 
@@ -27,16 +27,6 @@ classdef (Abstract) Constants
                                    'version',     extractBefore(matVersion, ' '),             ...
                                    'path',        matlabroot,                                 ...
                                    'productList', char(strjoin(matProducts.Name + " v. " + matProducts.Version, ', ')));
-        end
-
-
-        %-----------------------------------------------------------------%
-        function fileName = DefaultFileName(userPath, Prefix, Issue)
-            fileName = fullfile(userPath, sprintf('%s_%s', Prefix, datestr(now,'yyyy.mm.dd_THH.MM.SS')));
-
-            if Issue > 0
-                fileName = sprintf('%s_%d', fileName, Issue);
-            end
         end
     end
 end
