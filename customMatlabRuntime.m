@@ -150,5 +150,26 @@ classdef (Abstract) customMatlabRuntime
                 error('customMatlabRuntime:ValidateIDList', 'Invalid ID values: %s', strjoin(string(IDList(IDListIndex)), ', '))
             end
         end
+
+
+        %-----------------------------------------------------------------%
+        function output = HexStringRuntimeProductsMapping(varargin)
+            mappingType = varargin{1};
+
+            % fileName = customMatlabRuntime.HexStringRuntimeProductsMapping('id2str', [35000 35002 35003 35010 35108 35111 35117 35119 35136 35162 35180 35256])
+            % fileName = 'f006c0812000020000'
+
+            % IDList   = customMatlabRuntime.HexStringRuntimeProductsMapping('str2id', 'f006c0812000020000')
+            % IDList   = int64([35000 35002 35003 35010 35108 35111 35117 35119 35136 35162 35180 35256])'
+
+            switch mappingType
+                case 'str2id'
+                    hexString = varargin{2};
+                    output    = compiler.internal.utils.hexString2RuntimeProducts(hexString);
+                case 'id2str'
+                    IDList    = varargin{2};
+                    output    = compiler.internal.utils.runtimeProducts2HexString(IDList);
+            end
+        end
     end
 end
