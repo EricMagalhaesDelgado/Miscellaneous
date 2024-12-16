@@ -1,62 +1,45 @@
-function apps_EXE_Post(prjName, rootFolder, matlabRuntimeCache)
+function apps_EXE_Post(prjName, rootFolder, matlabRuntimeCache, spashscreenFolder)
 
     arguments
-        prjName            char {mustBeMember(prjName, {'appAnalise', 'appAnaliseV2', 'appColeta', 'appColetaV2', 'SCH'})} = 'SCH'
+        prjName            char {mustBeMember(prjName, {'appAnalise', 'appColeta', 'SCH'})} = 'appColeta'
         rootFolder         char = 'D:\InovaFiscaliza'
         matlabRuntimeCache char = 'E:\MATLAB Runtime\MATLAB Runtime (Custom)\R2024a'
+        spashscreenFolder  char = 'D:\_Versões Compiladas dos Apps\%appName%\Desktop'
     end
 
     % !! COMPILAÇÃO !!
     % Release: MATLAB R2024a Update6
-    % Data...: 05/08/2024
+    % Data...: 06/10/2024
     
-    % appAnalise: 35000 35002 35003 35010 35108 35111 35117 35119 35136
-    % appColeta.: 35000 35002 35003 35010 35108 35162
-    % SCH.......: 35000 35002 35003 35010 35119 35180 35256
+    % appAnalise: 35000	35002 35003 35010 35108 35111 35117 35119 35136       35180       (Compilado no MATLAB R2024a em 04/10/2024)
+    % appColeta.: 35000	35002 35003	35010 35108	35111       35119 35136 35162 35180	      (Compilado no MATLAB R2024a em 09/12/2024)
+    % SCH.......: 35000	35002 35003	35010 35108	35111       35119 35136       35180 35256 (Compilado no MATLAB R2024a em 04/10/2024)
 
-    % IDList = [35000 35002 35003 35010 35108 35111 35117 35119 35136 35162 35180 35256]
+    % IDList =   [35000 35002 35003 35010 35108 35111 35117 35119 35136 35162 35180 35256]
+
+    initialFolder = pwd;
 
     prjPath  = fullfile(rootFolder, prjName);
     cd(prjPath)
     
-    switch prjName
-        case 'appColeta'
-            appName     = 'appColeta';
-            appRelease  = 'R2022a';
-            appVersion  = '1.12';    
-        otherwise
-            appName     = class.Constants.appName;
-            appRelease  = class.Constants.appRelease;
-            appVersion  = class.Constants.appVersion;
-    end
+    appName     = class.Constants.appName;
+    appRelease  = class.Constants.appRelease;
+    appVersion  = class.Constants.appVersion;
     
     fileName = [appName '.exe'];
-    switch prjName
-        case 'appAnaliseV2'
-            codeRepo = 'https://github.com/InovaFiscaliza/appAnalise'; 
-        otherwise
-            codeRepo = ['https://github.com/InovaFiscaliza/' prjName]; 
-    end
+    codeRepo = ['https://github.com/InovaFiscaliza/' prjName]; 
     
     switch prjName
-        case 'appAnalise';   customFiles = {'GeneralSettings.json', 'mask.csv'};
-        case 'appAnaliseV2'; customFiles = {'GeneralSettings.json'};
-        case 'appColeta';    customFiles = {'GeneralSettings.json', 'rfeyeList.cfg', 'scpiList.json', 'mask.csv', 'taskList.json'};
-        case 'appColetaV2';  customFiles = {'GeneralSettings.json', 'EMSatLib.json', 'GPSLib.json', 'instrumentList.json', 'mask.csv', 'taskList.json'};
-        otherwise;           customFiles = {};
+        case 'appColeta'
+            customFiles = {'switchList.json', 'EMSatLib.json', 'GPSLib.json', 'instrumentList.json', 'mask.csv', 'taskList.json'};
+        otherwise
+            customFiles = {};
     end
     
     % % path rename
-    switch prjName
-        case 'SCH'
-            oldPath  = fullfile(prjPath, ['win' prjName '_desktopCompiler'], 'for_redistribution_files_only');
-            testPath = fullfile(prjPath, ['win' prjName '_desktopCompiler'], 'for_testing');
-            newPath  = fullfile(prjPath, ['win' prjName '_desktopCompiler'], 'application');
-        otherwise
-            oldPath  = fullfile(prjPath, [prjName '_CompilerProject'], 'for_redistribution_files_only');
-            testPath = fullfile(prjPath, [prjName '_CompilerProject'], 'for_testing');
-            newPath  = fullfile(prjPath, [prjName '_CompilerProject'], 'application');           
-    end
+    oldPath  = fullfile(prjPath, [prjName '_desktopCompiler'], 'for_redistribution_files_only');
+    testPath = fullfile(prjPath, [prjName '_desktopCompiler'], 'for_testing');
+    newPath  = fullfile(prjPath, [prjName '_desktopCompiler'], 'application');
 
     % É necessário gerar uma nova versão customizada do MATLAB Runtime?!
     fileContent  = strsplit(strtrim(fileread(fullfile(testPath, 'requiredMCRProducts.txt'))), '\t');
@@ -73,12 +56,12 @@ function apps_EXE_Post(prjName, rootFolder, matlabRuntimeCache)
     end
 
     % Aqui continua...
-    movefile(oldPath, newPath);
+    movefile(oldPath, newPath, 'f');
 
     switch prjName
         case 'SCH'
             if isfile('D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat')
-                movefile('D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat', fullfile(newPath, 'DataBase', 'SCHData.mat'), 'f');
+                copyfile('D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat', fullfile(newPath, 'DataBase', 'SCHData.mat'), 'f');
             end
         otherwise
             % Pendente
@@ -110,11 +93,49 @@ function apps_EXE_Post(prjName, rootFolder, matlabRuntimeCache)
     writematrix(jsonencode(appIntegrity, 'PrettyPrint', true), fullfile(newPath, 'Settings', 'appIntegrity.json'), 'FileType', 'text', 'QuoteStrings', 'none')
     
     % % zip file
+    zipProcess(newPath, sprintf('%s_Matlab.zip', appName))
+
+    % % Mescla com o splashscreen, criando as versões finais.
+    spashscreenFolder = replace(spashscreenFolder, '%appName%', prjName);
+
+    if isfolder(fullfile(spashscreenFolder, 'application'))
+        rmdir(fullfile(spashscreenFolder, 'application'), 's')
+    end
+    
+    delete(fullfile(fileparts(spashscreenFolder), sprintf('%s.zip', appName)))
+    delete(fullfile(fileparts(spashscreenFolder), sprintf('%s_Matlab.zip', appName)))
+
+    movefile(fullfile(fileparts(newPath), sprintf('%s_Matlab.zip', appName)), fileparts(spashscreenFolder), 'f')
+    movefile(newPath, fullfile(spashscreenFolder, 'application'), 'f')
+    zipProcess(spashscreenFolder, sprintf('%s.zip', appName))    
+
+    % % Apaga arquivos gerados pelo MATLAB, no processo de compilação, mas
+    % que não são úteis neste contexto. Evita ter que exclui-los no GitHub.
+    deleteTrash(fileparts(newPath))
+
+    % % Finaliza na pasta onde estarão os arquivos zipados...
+    cd(initialFolder)
+end
+
+
+%-------------------------------------------------------------------------%
+function zipProcess(zipFolder, zipFileName)
+    cd(zipFolder)
+
     zipObj = struct2table(dir);
     zipObj = zipObj.name(3:end)';
     
-    zip(sprintf('%s_Matlab.zip', appName), zipObj)
-    movefile(sprintf('%s_Matlab.zip', appName), fileparts(pwd));
-    
-    cd(fileparts(pwd))
+    zip(zipFileName, zipObj)
+    movefile(zipFileName, fileparts(zipFolder), 'f');
+end
+
+
+%-------------------------------------------------------------------------%
+function deleteTrash(trashFolder)
+    cd(trashFolder)
+    files2Delete = struct2table(dir);
+    files2Delete = files2Delete.name(3:end)';
+
+    cellfun(@(x) rmdir(x, 's'), files2Delete( isfolder(files2Delete)));
+    cellfun(@(x) delete(x),     files2Delete(~isfolder(files2Delete)));
 end

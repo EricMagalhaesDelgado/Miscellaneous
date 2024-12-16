@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "computerName": {
+        "deskopApp": "",
+        "webServer": "WIMATLABPDIN01"
+    },
+    "fileFolder": {
+        "userPath": "",
+        "tempPath": "",
+        "pythonPath": "",
+        "DataHub_GET": "D:\\OneDrive - ANATEL\\DataHub - GET\\SCH",
+        "DataHub_POST": ""
+    }
+}

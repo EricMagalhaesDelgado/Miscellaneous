@@ -1,0 +1,8 @@
+{
+  "VersionFile": "https://raw.githubusercontent.com/InovaFiscaliza/.github/main/releases/VersionFile.json",
+  "SCH": {
+      "Sharepoint": "https://anatel365.sharepoint.com/sites/InovaFiscaliza/SitePages/SCH.aspx",
+      "Dashboard_File1": "https://www.anatel.gov.br/dadosabertos/paineis_de_dados/certificacao_de_produtos/produtos_certificados.zip",
+      "Dashboard_File2": "https://www.anatel.gov.br/dadosabertos/paineis_de_dados/certificacao_de_produtos/Produtos_Homologados_por_Declaração_de_Conformidade.zip"      
+  }
+}

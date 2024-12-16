@@ -1,0 +1,765 @@
+05-Aug-2024 21:44:36
+Tentativa de atualização da base de dados "SCHData.mat" iniciada.
+
+<a href="matlab: opentoline('D:\InovaFiscaliza\SCHDataUpdate\SCHDataUpdate.m',43,1)">43  </a>        checkNeedOfUpdate(rootFolder, rawData, releasedData)
+rawData(1)
+
+ans = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          Table: [148476×19 table]
+    TableHeight: 148476
+       FileSize: 40602045
+      TimeStamp: '05/08/2024'
+
+rawData(2)
+
+ans = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+          Table: [121573×19 table]
+    TableHeight: 121573
+       FileSize: 14195865
+      TimeStamp: '04/08/2024'
+
+if system_dependent('IsDebugMode')==1, dbstep in; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+load(fullfile(POSTFolder, 'SCHData.mat'))
+{Unrecognized function or variable 'POSTFolder'.
+} 
+load('D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat')
+doc load
+m = matfile('D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat', 'Writable', false)
+
+m = 
+
+  <a href="matlab:help matlab.io.MatFile">matlab.io.MatFile</a>
+
+  Properties:
+              Properties.Source: 'D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat'
+            Properties.Writable: false                                               
+    Properties.ProtectedLoading: false                                               
+                      cacheData: [3x1  struct]                                       
+                   rawDataTable: [ -   table]                                        
+                   releasedData: [1x10 char]                                         
+
+  <a href="matlab:methods matlab.io.MatFile">Methods</a>
+
+height(m.rawDataTable)
+
+ans =
+
+      270049
+
+height(m.rawDataTable)
+
+ans =
+
+      270049
+
+height(m.rawDataTable(:,1))
+{The variable 'rawDataTable' is of class 'table'. To use 'rawDataTable', load the entire variable.
+} 
+m.releasedData
+
+ans =
+
+    '03/08/2024'
+
+doc save
+m
+
+m = 
+
+  <a href="matlab:help matlab.io.MatFile">matlab.io.MatFile</a>
+
+  Properties:
+              Properties.Source: 'D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat'
+            Properties.Writable: false                                               
+    Properties.ProtectedLoading: false                                               
+                      cacheData: [3x1  struct]                                       
+                   rawDataTable: [ -   table]                                        
+                   releasedData: [1x10 char]                                         
+
+  <a href="matlab:methods matlab.io.MatFile">Methods</a>
+
+methods matlab.io.MatFile
+
+No methods for class matlab.io.MatFile.
+
+methods(m)
+
+No methods for class matlab.io.MatFile.
+
+doc matfile
+[nrows,ncols] = size(m, 'rawDataTable')
+
+nrows =
+
+     1
+
+
+ncols =
+
+     1
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+SCHDataUpdate
+05-Aug-2024 22:27:10
+Tentativa de atualização da base de dados "SCHData.mat" iniciada.
+
+<a href="matlab: opentoline('D:\InovaFiscaliza\SCHDataUpdate\SCHDataUpdate.m',19,1)">19  </a>        tic
+if system_dependent('IsDebugMode')==1, dbcont; end
+Elapsed time is 15.873482 seconds.
+refHeight
+
+refHeight =
+
+      270049
+
+refRelease
+
+refRelease =
+
+    '03/08/2024'
+
+if system_dependent('IsDebugMode')==1, dbcont; end
+Elapsed time is 2.446961 seconds.
+if system_dependent('IsDebugMode')==1, dbquit; end
+SCHDataUpdate
+05-Aug-2024 22:29:47
+Tentativa de atualização da base de dados "SCHData.mat" iniciada.
+
+<a href="matlab: opentoline('D:\InovaFiscaliza\SCHDataUpdate\SCHDataUpdate.m',46,1)">46  </a>        if (refHeight ~= height(rawDataTable)) || ~strcmp(refRelease, releasedData)
+clc
+refHeight ~= height(rawDataTable)
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+~strcmp(refRelease, releasedData)
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   1
+
+load(fullfile(POSTFolder, 'SCHData.mat'), 'rawDataTable')
+refTable = rawDataTable;
+rawDataTable = vertcat(rawData.Table);
+rawDataTable = sortrows(rawDataTable, 'Homologação');
+head(refTable),head(rawDataTable)
+    <strong>Data da Homologação</strong>       <strong>Homologação</strong>                                <strong>Solicitante</strong>                                   <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Data do Certificado de Conformidade Técnica</strong>    <strong>Data de Validade do Certificado</strong>    <strong>Situação do Certificado</strong>          <strong>Situação</strong>                                   <strong>Fabricante</strong>                                       <strong>Modelo</strong>                    <strong>Nome Comercial</strong>          <strong>Categoria do Produto</strong>                  <strong>Tipo</strong>                  <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>       <strong>País do Fabricante</strong>        <strong>CodUIT</strong>    <strong>CodISO</strong>       <strong>_Homologação</strong>                              <strong>_Solicitante</strong>                                                    <strong>_Fabricante</strong>                                     <strong>_Modelo</strong>                   <strong>_Nome Comercial</strong>      
+    <strong>___________________</strong>    <strong>__________________</strong>    <strong>___________________________________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>___________________________________________</strong>    <strong>_______________________________</strong>    <strong>_______________________</strong>    <strong>_____________________</strong>    <strong>___________________________________________________________</strong>    <strong>__________________________</strong>    <strong>__________________________</strong>    <strong>____________________</strong>    <strong>________________________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>_________________________</strong>    <strong>______</strong>    <strong>______</strong>    <strong>__________________</strong>    <strong>___________________________________________________________</strong>    <strong>___________________________________________________________</strong>    <strong>__________________________</strong>    <strong>__________________________</strong>
+
+        07/01/2002         {'00001-02-01540'}    {'Ronam Internacional Imp.Exp.Ltda.'                      }    {'60.632.882/0001-30'}         TRB-TEL-026/2001                                  04/12/2001                                      NaT               Preenchimento Concluído    Homologação Emitida      {'Enavis Networks Ltd.'                                   }    {'T::DAX'                }    {'T::DAX'                }             3              Multiplexador de Dados                  N           S        Israel                        ISR       ISR      {'00001-02-01540'}    {'ronam internacional imp exp ltda'                       }    {'enavis networks ltd'                                    }    {'t  dax'                }    {'t  dax'                }
+        09/01/2003         {'00001-03-01045'}    {'CERAGON AMERICA LATINA LTDA'                            }    {'00.538.268/0001-81'}         0172                                              30/10/2002                               30/10/2006               Suspenso                   Homologação Cancelada    {'Ceragon Networks AS'                                    }    {'Citylink 18GHz'        }    {'Citylink 18GHz'        }             3              Transceptor Digital                     N           S        Noruega                       NOR       NOR      {'00001-03-01045'}    {'ceragon america latina ltda'                            }    {'ceragon networks as'                                    }    {'citylink 18ghz'        }    {'citylink 18ghz'        }
+        06/01/2004         {'00001-04-00324'}    {'RFS BRASIL TELECOMUNICACOES LTDA.'                      }    {'44.040.707/0001-05'}         NCC 1461/03                                       28/11/2003                                      NaT               Preenchimento Concluído    Homologação Cancelada    {'RFS BRASIL TELECOMUNICACOES LTDA.'                      }    {'RGC 58 Celular 50 ohms'}    {'RGC 58 Celular 50 ohms'}             3              Cabo Coaxial                            N           S        Brasil                        BRA       BRA      {'00001-04-00324'}    {'rfs brasil telecomunicacoes ltda'                       }    {'rfs brasil telecomunicacoes ltda'                       }    {'rgc 58 celular 50 ohms'}    {'rgc 58 celular 50 ohms'}
+        07/01/2005         {'00001-05-01457'}    {'TAIT COMUNICACOES BRASIL LTDA'                          }    {'67.116.715/0001-85'}         0483A                                             18/11/2004                               18/11/2006               Suspenso                   Homologação Cancelada    {'EF Johnson Comp.'                                       }    {'242-511*-***'          }    {'242-511*-***'          }             3              Transceptor Portátil FM                 N           N        Estados Unidos da América     USA       USA      {'00001-05-01457'}    {'tait comunicacoes brasil ltda'                          }    {'ef johnson comp'                                        }    {'242-511*-***'          }    {'242-511*-***'          }
+        10/05/2013         {'00001-06-02375'}    {'Trendware Informática Ltda'                             }    {'01.038.366/0001-12'}         NCC 9306/13                                       30/04/2013                               14/12/2014               Suspenso                   Homologação Suspensa     {'Trendnet International Inc.'                            }    {'TFM-560X'              }    {'TFM-560X'              }             1              Modem Analógico                         N           S        Estados Unidos da América     USA       USA      {'00001-06-02375'}    {'trendware informatica ltda'                             }    {'trendnet international inc'                             }    {'tfm-560x'              }    {'tfm-560x'              }
+        18/05/2009         {'00001-07-01397'}    {'SIAE MICROELETTRONICA DO BRASIL LTDA.'                  }    {'06.009.787/0001-39'}         1878.TELT.1916.06.A.0/01                          22/12/2006                               22/12/2012               Suspenso                   Homologação Suspensa     {'Siae Microelettronica S. P. A.'                         }    {'AL 7'                  }    {'AL 7'                  }             3              Transceptor Digital                     N           S        Itália                        I         ITA      {'00001-07-01397'}    {'siae microelettronica do brasil ltda'                   }    {'siae microelettronica s  p  a'                          }    {'al 7'                  }    {'al 7'                  }
+        27/03/2008         {'00001-08-00502'}    {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'01.472.720/0001-12'}         NCC 4351/08                                       18/01/2008                               18/01/2010               Suspenso                   Homologação Suspensa     {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'SPN5399A-FMP5317A'     }    {'SPN5399A-FMP5317A'     }             1              Carregador para Telefone Celular        N           S        Brasil                        BRA       BRA      {'00001-08-00502'}    {'motorola mobility comercio de produtos eletronicos ltda'}    {'motorola mobility comercio de produtos eletronicos ltda'}    {'spn5399a-fmp5317a'     }    {'spn5399a-fmp5317a'     }
+        27/03/2008         {'00001-08-00502'}    {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'01.472.720/0001-12'}         NCC 4351/08                                       18/01/2008                               18/01/2010               Suspenso                   Homologação Suspensa     {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'SPN5317A-FMP5317A'     }    {'SPN5317A-FMP5317A'     }             1              Carregador para Telefone Celular        N           S        Brasil                        BRA       BRA      {'00001-08-00502'}    {'motorola mobility comercio de produtos eletronicos ltda'}    {'motorola mobility comercio de produtos eletronicos ltda'}    {'spn5317a-fmp5317a'     }    {'spn5317a-fmp5317a'     }
+
+    <strong>Data da Homologação</strong>       <strong>Homologação</strong>                                <strong>Solicitante</strong>                                   <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Data do Certificado de Conformidade Técnica</strong>    <strong>Data de Validade do Certificado</strong>    <strong>Situação do Certificado</strong>          <strong>Situação</strong>                                   <strong>Fabricante</strong>                                       <strong>Modelo</strong>                    <strong>Nome Comercial</strong>          <strong>Categoria do Produto</strong>                  <strong>Tipo</strong>                  <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>       <strong>País do Fabricante</strong>        <strong>CodUIT</strong>    <strong>CodISO</strong>
+    <strong>___________________</strong>    <strong>__________________</strong>    <strong>___________________________________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>___________________________________________</strong>    <strong>_______________________________</strong>    <strong>_______________________</strong>    <strong>_____________________</strong>    <strong>___________________________________________________________</strong>    <strong>__________________________</strong>    <strong>__________________________</strong>    <strong>____________________</strong>    <strong>________________________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>_________________________</strong>    <strong>______</strong>    <strong>______</strong>
+
+        07/01/2002         {'00001-02-01540'}    {'Ronam Internacional Imp.Exp.Ltda.'                      }    {'60.632.882/0001-30'}         TRB-TEL-026/2001                                  04/12/2001                                      NaT               Preenchimento Concluído    Homologação Emitida      {'Enavis Networks Ltd.'                                   }    {'T::DAX'                }    {'T::DAX'                }             3              Multiplexador de Dados                  N           S        Israel                        ISR       ISR  
+        09/01/2003         {'00001-03-01045'}    {'CERAGON AMERICA LATINA LTDA'                            }    {'00.538.268/0001-81'}         0172                                              30/10/2002                               30/10/2006               Suspenso                   Homologação Cancelada    {'Ceragon Networks AS'                                    }    {'Citylink 18GHz'        }    {'Citylink 18GHz'        }             3              Transceptor Digital                     N           S        Noruega                       NOR       NOR  
+        06/01/2004         {'00001-04-00324'}    {'RFS BRASIL TELECOMUNICACOES LTDA.'                      }    {'44.040.707/0001-05'}         NCC 1461/03                                       28/11/2003                                      NaT               Preenchimento Concluído    Homologação Cancelada    {'RFS BRASIL TELECOMUNICACOES LTDA.'                      }    {'RGC 58 Celular 50 ohms'}    {'RGC 58 Celular 50 ohms'}             3              Cabo Coaxial                            N           S        Brasil                        BRA       BRA  
+        07/01/2005         {'00001-05-01457'}    {'TAIT COMUNICACOES BRASIL LTDA'                          }    {'67.116.715/0001-85'}         0483A                                             18/11/2004                               18/11/2006               Suspenso                   Homologação Cancelada    {'EF Johnson Comp.'                                       }    {'242-511*-***'          }    {'242-511*-***'          }             3              Transceptor Portátil FM                 N           N        Estados Unidos da América     USA       USA  
+        10/05/2013         {'00001-06-02375'}    {'Trendware Informática Ltda'                             }    {'01.038.366/0001-12'}         NCC 9306/13                                       30/04/2013                               14/12/2014               Suspenso                   Homologação Suspensa     {'Trendnet International Inc.'                            }    {'TFM-560X'              }    {'TFM-560X'              }             1              Modem Analógico                         N           S        Estados Unidos da América     USA       USA  
+        18/05/2009         {'00001-07-01397'}    {'SIAE MICROELETTRONICA DO BRASIL LTDA.'                  }    {'06.009.787/0001-39'}         1878.TELT.1916.06.A.0/01                          22/12/2006                               22/12/2012               Suspenso                   Homologação Suspensa     {'Siae Microelettronica S. P. A.'                         }    {'AL 7'                  }    {'AL 7'                  }             3              Transceptor Digital                     N           S        Itália                        I         ITA  
+        27/03/2008         {'00001-08-00502'}    {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'01.472.720/0001-12'}         NCC 4351/08                                       18/01/2008                               18/01/2010               Suspenso                   Homologação Suspensa     {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'SPN5399A-FMP5317A'     }    {'SPN5399A-FMP5317A'     }             1              Carregador para Telefone Celular        N           S        Brasil                        BRA       BRA  
+        27/03/2008         {'00001-08-00502'}    {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'01.472.720/0001-12'}         NCC 4351/08                                       18/01/2008                               18/01/2010               Suspenso                   Homologação Suspensa     {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'SPN5317A-FMP5317A'     }    {'SPN5317A-FMP5317A'     }             1              Carregador para Telefone Celular        N           S        Brasil                        BRA       BRA  
+
+isequal(refTable, rawDataTable)
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+isequal(refTable(:1,19), rawDataTable)
+ isequal(refTable(:1,19), rawDataTable)
+                   ↑
+{Invalid expression. Check for missing multiplication operator, missing or unbalanced delimiters, or other
+syntax error. To construct matrices, use brackets instead of parentheses.
+} 
+isequal(refTable(:,1:19), rawDataTable)
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+head(refTable(:,1:19),head(rawDataTable)
+ head(refTable(:,1:19),head(rawDataTable)
+                                         ↑
+{Invalid expression. When calling a function or indexing a variable, use parentheses. Otherwise, check for
+mismatched delimiters.
+} 
+head(refTable(:,1:19),head(rawDataTable))
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('head', 'C:\Program Files\MATLAB\R2024a\toolbox\matlab\datafun\head.m', 19)" style="font-weight:bold">head</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024a\toolbox\matlab\datafun\head.m',19,0)">line 19</a>)
+Number of rows to return must be a real, nonnegative, integer scalar.
+} 
+head(refTable(:,1:19)),head(rawDataTable)
+    <strong>Data da Homologação</strong>       <strong>Homologação</strong>                                <strong>Solicitante</strong>                                   <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Data do Certificado de Conformidade Técnica</strong>    <strong>Data de Validade do Certificado</strong>    <strong>Situação do Certificado</strong>          <strong>Situação</strong>                                   <strong>Fabricante</strong>                                       <strong>Modelo</strong>                    <strong>Nome Comercial</strong>          <strong>Categoria do Produto</strong>                  <strong>Tipo</strong>                  <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>       <strong>País do Fabricante</strong>        <strong>CodUIT</strong>    <strong>CodISO</strong>
+    <strong>___________________</strong>    <strong>__________________</strong>    <strong>___________________________________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>___________________________________________</strong>    <strong>_______________________________</strong>    <strong>_______________________</strong>    <strong>_____________________</strong>    <strong>___________________________________________________________</strong>    <strong>__________________________</strong>    <strong>__________________________</strong>    <strong>____________________</strong>    <strong>________________________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>_________________________</strong>    <strong>______</strong>    <strong>______</strong>
+
+        07/01/2002         {'00001-02-01540'}    {'Ronam Internacional Imp.Exp.Ltda.'                      }    {'60.632.882/0001-30'}         TRB-TEL-026/2001                                  04/12/2001                                      NaT               Preenchimento Concluído    Homologação Emitida      {'Enavis Networks Ltd.'                                   }    {'T::DAX'                }    {'T::DAX'                }             3              Multiplexador de Dados                  N           S        Israel                        ISR       ISR  
+        09/01/2003         {'00001-03-01045'}    {'CERAGON AMERICA LATINA LTDA'                            }    {'00.538.268/0001-81'}         0172                                              30/10/2002                               30/10/2006               Suspenso                   Homologação Cancelada    {'Ceragon Networks AS'                                    }    {'Citylink 18GHz'        }    {'Citylink 18GHz'        }             3              Transceptor Digital                     N           S        Noruega                       NOR       NOR  
+        06/01/2004         {'00001-04-00324'}    {'RFS BRASIL TELECOMUNICACOES LTDA.'                      }    {'44.040.707/0001-05'}         NCC 1461/03                                       28/11/2003                                      NaT               Preenchimento Concluído    Homologação Cancelada    {'RFS BRASIL TELECOMUNICACOES LTDA.'                      }    {'RGC 58 Celular 50 ohms'}    {'RGC 58 Celular 50 ohms'}             3              Cabo Coaxial                            N           S        Brasil                        BRA       BRA  
+        07/01/2005         {'00001-05-01457'}    {'TAIT COMUNICACOES BRASIL LTDA'                          }    {'67.116.715/0001-85'}         0483A                                             18/11/2004                               18/11/2006               Suspenso                   Homologação Cancelada    {'EF Johnson Comp.'                                       }    {'242-511*-***'          }    {'242-511*-***'          }             3              Transceptor Portátil FM                 N           N        Estados Unidos da América     USA       USA  
+        10/05/2013         {'00001-06-02375'}    {'Trendware Informática Ltda'                             }    {'01.038.366/0001-12'}         NCC 9306/13                                       30/04/2013                               14/12/2014               Suspenso                   Homologação Suspensa     {'Trendnet International Inc.'                            }    {'TFM-560X'              }    {'TFM-560X'              }             1              Modem Analógico                         N           S        Estados Unidos da América     USA       USA  
+        18/05/2009         {'00001-07-01397'}    {'SIAE MICROELETTRONICA DO BRASIL LTDA.'                  }    {'06.009.787/0001-39'}         1878.TELT.1916.06.A.0/01                          22/12/2006                               22/12/2012               Suspenso                   Homologação Suspensa     {'Siae Microelettronica S. P. A.'                         }    {'AL 7'                  }    {'AL 7'                  }             3              Transceptor Digital                     N           S        Itália                        I         ITA  
+        27/03/2008         {'00001-08-00502'}    {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'01.472.720/0001-12'}         NCC 4351/08                                       18/01/2008                               18/01/2010               Suspenso                   Homologação Suspensa     {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'SPN5399A-FMP5317A'     }    {'SPN5399A-FMP5317A'     }             1              Carregador para Telefone Celular        N           S        Brasil                        BRA       BRA  
+        27/03/2008         {'00001-08-00502'}    {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'01.472.720/0001-12'}         NCC 4351/08                                       18/01/2008                               18/01/2010               Suspenso                   Homologação Suspensa     {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'SPN5317A-FMP5317A'     }    {'SPN5317A-FMP5317A'     }             1              Carregador para Telefone Celular        N           S        Brasil                        BRA       BRA  
+
+    <strong>Data da Homologação</strong>       <strong>Homologação</strong>                                <strong>Solicitante</strong>                                   <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Data do Certificado de Conformidade Técnica</strong>    <strong>Data de Validade do Certificado</strong>    <strong>Situação do Certificado</strong>          <strong>Situação</strong>                                   <strong>Fabricante</strong>                                       <strong>Modelo</strong>                    <strong>Nome Comercial</strong>          <strong>Categoria do Produto</strong>                  <strong>Tipo</strong>                  <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>       <strong>País do Fabricante</strong>        <strong>CodUIT</strong>    <strong>CodISO</strong>
+    <strong>___________________</strong>    <strong>__________________</strong>    <strong>___________________________________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>___________________________________________</strong>    <strong>_______________________________</strong>    <strong>_______________________</strong>    <strong>_____________________</strong>    <strong>___________________________________________________________</strong>    <strong>__________________________</strong>    <strong>__________________________</strong>    <strong>____________________</strong>    <strong>________________________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>_________________________</strong>    <strong>______</strong>    <strong>______</strong>
+
+        07/01/2002         {'00001-02-01540'}    {'Ronam Internacional Imp.Exp.Ltda.'                      }    {'60.632.882/0001-30'}         TRB-TEL-026/2001                                  04/12/2001                                      NaT               Preenchimento Concluído    Homologação Emitida      {'Enavis Networks Ltd.'                                   }    {'T::DAX'                }    {'T::DAX'                }             3              Multiplexador de Dados                  N           S        Israel                        ISR       ISR  
+        09/01/2003         {'00001-03-01045'}    {'CERAGON AMERICA LATINA LTDA'                            }    {'00.538.268/0001-81'}         0172                                              30/10/2002                               30/10/2006               Suspenso                   Homologação Cancelada    {'Ceragon Networks AS'                                    }    {'Citylink 18GHz'        }    {'Citylink 18GHz'        }             3              Transceptor Digital                     N           S        Noruega                       NOR       NOR  
+        06/01/2004         {'00001-04-00324'}    {'RFS BRASIL TELECOMUNICACOES LTDA.'                      }    {'44.040.707/0001-05'}         NCC 1461/03                                       28/11/2003                                      NaT               Preenchimento Concluído    Homologação Cancelada    {'RFS BRASIL TELECOMUNICACOES LTDA.'                      }    {'RGC 58 Celular 50 ohms'}    {'RGC 58 Celular 50 ohms'}             3              Cabo Coaxial                            N           S        Brasil                        BRA       BRA  
+        07/01/2005         {'00001-05-01457'}    {'TAIT COMUNICACOES BRASIL LTDA'                          }    {'67.116.715/0001-85'}         0483A                                             18/11/2004                               18/11/2006               Suspenso                   Homologação Cancelada    {'EF Johnson Comp.'                                       }    {'242-511*-***'          }    {'242-511*-***'          }             3              Transceptor Portátil FM                 N           N        Estados Unidos da América     USA       USA  
+        10/05/2013         {'00001-06-02375'}    {'Trendware Informática Ltda'                             }    {'01.038.366/0001-12'}         NCC 9306/13                                       30/04/2013                               14/12/2014               Suspenso                   Homologação Suspensa     {'Trendnet International Inc.'                            }    {'TFM-560X'              }    {'TFM-560X'              }             1              Modem Analógico                         N           S        Estados Unidos da América     USA       USA  
+        18/05/2009         {'00001-07-01397'}    {'SIAE MICROELETTRONICA DO BRASIL LTDA.'                  }    {'06.009.787/0001-39'}         1878.TELT.1916.06.A.0/01                          22/12/2006                               22/12/2012               Suspenso                   Homologação Suspensa     {'Siae Microelettronica S. P. A.'                         }    {'AL 7'                  }    {'AL 7'                  }             3              Transceptor Digital                     N           S        Itália                        I         ITA  
+        27/03/2008         {'00001-08-00502'}    {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'01.472.720/0001-12'}         NCC 4351/08                                       18/01/2008                               18/01/2010               Suspenso                   Homologação Suspensa     {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'SPN5399A-FMP5317A'     }    {'SPN5399A-FMP5317A'     }             1              Carregador para Telefone Celular        N           S        Brasil                        BRA       BRA  
+        27/03/2008         {'00001-08-00502'}    {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'01.472.720/0001-12'}         NCC 4351/08                                       18/01/2008                               18/01/2010               Suspenso                   Homologação Suspensa     {'MOTOROLA MOBILITY COMERCIO DE PRODUTOS ELETRONICOS LTDA'}    {'SPN5317A-FMP5317A'     }    {'SPN5317A-FMP5317A'     }             1              Carregador para Telefone Celular        N           S        Brasil                        BRA       BRA  
+
+setdiff(refTable.Solicitante, rawDataTable.Solicitante)
+
+ans =
+
+  0×1 empty <a href="matlab:helpPopup('cell')" style="font-weight:bold">cell</a> array
+
+setdiff(refTable.("Homologação"), rawDataTable.("Homologação"))
+
+ans =
+
+  0×1 empty <a href="matlab:helpPopup('cell')" style="font-weight:bold">cell</a> array
+
+isequal(refTable(1:100,1:19), rawDataTable(1:100,:))
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+isequal(refTable(1,1:19), rawDataTable(1,:))
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+head(refTable(1,1:19)),head(rawDataTable(1,:))
+    <strong>Data da Homologação</strong>       <strong>Homologação</strong>                     <strong>Solicitante</strong>                        <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Data do Certificado de Conformidade Técnica</strong>    <strong>Data de Validade do Certificado</strong>    <strong>Situação do Certificado</strong>         <strong>Situação</strong>                 <strong>Fabricante</strong>             <strong>Modelo</strong>      <strong>Nome Comercial</strong>    <strong>Categoria do Produto</strong>             <strong>Tipo</strong>             <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>    <strong>País do Fabricante</strong>    <strong>CodUIT</strong>    <strong>CodISO</strong>
+    <strong>___________________</strong>    <strong>__________________</strong>    <strong>_____________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>___________________________________________</strong>    <strong>_______________________________</strong>    <strong>_______________________</strong>    <strong>___________________</strong>    <strong>________________________</strong>    <strong>__________</strong>    <strong>______________</strong>    <strong>____________________</strong>    <strong>______________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>__________________</strong>    <strong>______</strong>    <strong>______</strong>
+
+        07/01/2002         {'00001-02-01540'}    {'Ronam Internacional Imp.Exp.Ltda.'}    {'60.632.882/0001-30'}             TRB-TEL-026/2001                              04/12/2001                                   NaT                  Preenchimento Concluído    Homologação Emitida    {'Enavis Networks Ltd.'}    {'T::DAX'}      {'T::DAX'}               3              Multiplexador de Dados        N           S              Israel           ISR       ISR  
+
+    <strong>Data da Homologação</strong>       <strong>Homologação</strong>                     <strong>Solicitante</strong>                        <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Data do Certificado de Conformidade Técnica</strong>    <strong>Data de Validade do Certificado</strong>    <strong>Situação do Certificado</strong>         <strong>Situação</strong>                 <strong>Fabricante</strong>             <strong>Modelo</strong>      <strong>Nome Comercial</strong>    <strong>Categoria do Produto</strong>             <strong>Tipo</strong>             <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>    <strong>País do Fabricante</strong>    <strong>CodUIT</strong>    <strong>CodISO</strong>
+    <strong>___________________</strong>    <strong>__________________</strong>    <strong>_____________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>___________________________________________</strong>    <strong>_______________________________</strong>    <strong>_______________________</strong>    <strong>___________________</strong>    <strong>________________________</strong>    <strong>__________</strong>    <strong>______________</strong>    <strong>____________________</strong>    <strong>______________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>__________________</strong>    <strong>______</strong>    <strong>______</strong>
+
+        07/01/2002         {'00001-02-01540'}    {'Ronam Internacional Imp.Exp.Ltda.'}    {'60.632.882/0001-30'}             TRB-TEL-026/2001                              04/12/2001                                   NaT                  Preenchimento Concluído    Homologação Emitida    {'Enavis Networks Ltd.'}    {'T::DAX'}      {'T::DAX'}               3              Multiplexador de Dados        N           S              Israel           ISR       ISR  
+
+isequal(refTable(1,1), rawDataTable(1,1))
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   1
+
+for kk = 1:19
+if ~isequal(refTable(1,kk), rawDataTable(1,kk))
+kk
+end
+end
+
+kk =
+
+     7
+
+refTable(1,7)
+
+ans =
+
+  <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>Data de Validade do Certificado</strong>
+    <strong>_______________________________</strong>
+
+                  NaT              
+
+isequal(NaT, NaT)
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+find(isnat(refTable.("Data da Homologação")))
+
+ans =
+
+      198937
+      198941
+      199752
+      204807
+      204808
+
+refTable.({'Data da Homologação', 'Data do Certificado de Conformidade Técnica', 'Data de Validade do Certificado'}(1:10)
+ refTable.({'Data da Homologação', 'Data do Certificado de Conformidade Técnica', 'Data de Validade do Certificado'}(1:10)
+                                                                                                                    ↑
+{Invalid expression. When calling a function or indexing a variable, use parentheses. Otherwise, check for mismatched delimiters.
+} 
+refTable.({'Data da Homologação', 'Data do Certificado de Conformidade Técnica', 'Data de Validade do Certificado'})(1:2)
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tabular/dotReference', 'C:\Program Files\MATLAB\R2024a\toolbox\matlab\datatypes\tabular\@tabular\dotReference.m', 229)" style="font-weight:bold"> . </a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024a\toolbox\matlab\datatypes\tabular\@tabular\dotReference.m',229,0)">line 229</a>)
+Table variable names must be strings or character vectors.
+} 
+refTable.({'Data da Homologação', 'Data do Certificado de Conformidade Técnica', 'Data de Validade do Certificado'}){1:2}
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tabular/dotListLength', 'C:\Program Files\MATLAB\R2024a\toolbox\matlab\datatypes\tabular\@tabular\dotListLength.m', 75)" style="font-weight:bold">indexing</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024a\toolbox\matlab\datatypes\tabular\@tabular\dotListLength.m',75,0)">line 75</a>)
+Table variable names must be strings or character vectors.
+} 
+refTable.({'Data da Homologação', 'Data do Certificado de Conformidade Técnica', 'Data de Validade do Certificado'})
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tabular/dotReference', 'C:\Program Files\MATLAB\R2024a\toolbox\matlab\datatypes\tabular\@tabular\dotReference.m', 229)" style="font-weight:bold"> . </a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024a\toolbox\matlab\datatypes\tabular\@tabular\dotReference.m',229,0)">line 229</a>)
+Table variable names must be strings or character vectors.
+} 
+refTable.(1:5, [1,6,7])
+ refTable.(1:5, [1,6,7])
+              ↑
+{Invalid expression. When calling a function or indexing a variable, use parentheses. Otherwise, check for mismatched delimiters.
+} 
+refTable.{1:5,[1,6,7]}
+ refTable.{1:5,[1,6,7]}
+          ↑
+{Invalid expression. When calling a function or indexing a variable, use parentheses. Otherwise, check for mismatched delimiters.
+} 
+refTable(1:5, [1,6,7])
+
+ans =
+
+  5×3 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>Data da Homologação</strong>    <strong>Data do Certificado de Conformidade Técnica</strong>    <strong>Data de Validade do Certificado</strong>
+    <strong>___________________</strong>    <strong>___________________________________________</strong>    <strong>_______________________________</strong>
+
+        07/01/2002                         04/12/2001                                      NaT           
+        09/01/2003                         30/10/2002                               30/10/2006           
+        06/01/2004                         28/11/2003                                      NaT           
+        07/01/2005                         18/11/2004                               18/11/2006           
+        10/05/2013                         30/04/2013                               14/12/2014           
+
+refTable{1:5, [1,6,7]}
+
+ans = 
+
+  5×3 <a href="matlab:helpPopup('datetime')" style="font-weight:bold">datetime</a> array
+
+   07/01/2002   04/12/2001   NaT       
+   09/01/2003   30/10/2002   30/10/2006
+   06/01/2004   28/11/2003   NaT       
+   07/01/2005   18/11/2004   18/11/2006
+   10/05/2013   30/04/2013   14/12/2014
+
+isnan(refTable{1:5, [1,6,7]})
+{Incorrect number or types of inputs or outputs for function isnan.
+} 
+isnat(refTable{1:5, [1,6,7]})
+
+ans =
+
+  5×3 <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a> array
+
+   0   0   1
+   0   0   0
+   0   0   1
+   0   0   0
+   0   0   0
+
+any(isnat(refTable{1:5, [1,6,7]}), 2)
+
+ans =
+
+  5×1 <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a> array
+
+   1
+   0
+   1
+   0
+   0
+
+~any(isnat(refTable{1:5, [1,6,7]}), 2)
+
+ans =
+
+  5×1 <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a> array
+
+   0
+   1
+   0
+   1
+   1
+
+columnsIndex = setdiff(1:19, [1,6,7])
+
+columnsIndex =
+
+     2     3     4     5     8     9    10    11    12    13    14    15    16    17    18    19
+
+rawData.Properties
+{Unrecognized field name "Properties".
+} 
+refTable.Properties
+
+ans = 
+
+  <a href="matlab:helpPopup('matlab.tabular.TableProperties')" style="font-weight:bold">TableProperties</a> with properties:
+
+             Description: ''
+                UserData: []
+          DimensionNames: {'Row'  'Variables'}
+           VariableNames: {1×24 cell}
+    VariableDescriptions: {}
+           VariableUnits: {}
+      VariableContinuity: []
+                RowNames: {}
+        CustomProperties: No custom properties are set.
+      Use <a href="matlab:helpPopup table/addprop">addprop</a> and <a href="matlab:helpPopup table/rmprop">rmprop</a> to modify CustomProperties.
+
+  <a href="matlab:if exist('obj', 'var'),matlab.display.internal.getDebugObjectDisplay('obj', obj, 'matlab.internal.datatypes.DisplayHelper'), else, matlab.display.internal.getDebugObjectDisplay('obj'), end">Show all accessible properties of DisplayHelper</a>
+
+refTable.Properties.VariableUnits
+
+ans =
+
+  0×0 empty <a href="matlab:helpPopup('cell')" style="font-weight:bold">cell</a> array
+
+methods(refTable)
+
+Methods for class table:
+
+abs           addprop       atan2         cospi         cumsum        inner2outer   keyHash       mean          nextpow2      rdivide       rows2vars     size          tand          xor           
+acos          addvars       atan2d        cot           diff          innerjoin     keyMatch      median        not           reallog       sec           sortrows      tanh          
+acosd         and           atand         cotd          eq            intersect     ldivide       mergevars     nthroot       realpow       secd          splitvars     times         
+acosh         asec          atanh         coth          exp           isempty       le            min           numel         realsqrt      sech          sqrt          topkrows      
+acot          asecd         cat           csc           expm1         ismember      log           minus         or            rem           setdiff       stack         union         
+acotd         asech         ceil          cscd          fix           isprop        log10         mod           outerjoin     removevars    setxor        std           unique        
+acoth         asin          convertvars   csch          floor         issortedrows  log1p         mode          plus          renamevars    sin           sum           unstack       
+acsc          asind         cos           cummax        ge            istable       log2          movevars      pow2          rmprop        sind          summary       var           
+acscd         asinh         cosd          cummin        gt            istabular     lt            ndims         power         round         sinh          table         varfun        
+acsch         atan          cosh          cumprod       horzcat       join          max           ne            prod          rowfun        sinpi         tan           vertcat       
+
+refTable{1,:}
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('tabular/braceReference', 'C:\Program Files\MATLAB\R2024a\toolbox\matlab\datatypes\tabular\@tabular\braceReference.m', 89)" style="font-weight:bold"> {} </a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024a\toolbox\matlab\datatypes\tabular\@tabular\braceReference.m',89,0)">line 89</a>)
+Unable to concatenate the table variables 'Data da Homologação' and 'Homologação', because their types are datetime and cell.
+} 
+refTable(1,:)
+
+ans =
+
+  1×24 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>Data da Homologação</strong>       <strong>Homologação</strong>                     <strong>Solicitante</strong>                        <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Data do Certificado de Conformidade Técnica</strong>    <strong>Data de Validade do Certificado</strong>    <strong>Situação do Certificado</strong>         <strong>Situação</strong>                 <strong>Fabricante</strong>             <strong>Modelo</strong>      <strong>Nome Comercial</strong>    <strong>Categoria do Produto</strong>             <strong>Tipo</strong>             <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>    <strong>País do Fabricante</strong>    <strong>CodUIT</strong>    <strong>CodISO</strong>       <strong>_Homologação</strong>                   <strong>_Solicitante</strong>                      <strong>_Fabricante</strong>           <strong>_Modelo</strong>      <strong>_Nome Comercial</strong>
+    <strong>___________________</strong>    <strong>__________________</strong>    <strong>_____________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>___________________________________________</strong>    <strong>_______________________________</strong>    <strong>_______________________</strong>    <strong>___________________</strong>    <strong>________________________</strong>    <strong>__________</strong>    <strong>______________</strong>    <strong>____________________</strong>    <strong>______________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>__________________</strong>    <strong>______</strong>    <strong>______</strong>    <strong>__________________</strong>    <strong>____________________________________</strong>    <strong>_______________________</strong>    <strong>__________</strong>    <strong>_______________</strong>
+
+        07/01/2002         {'00001-02-01540'}    {'Ronam Internacional Imp.Exp.Ltda.'}    {'60.632.882/0001-30'}             TRB-TEL-026/2001                              04/12/2001                                   NaT                  Preenchimento Concluído    Homologação Emitida    {'Enavis Networks Ltd.'}    {'T::DAX'}      {'T::DAX'}               3              Multiplexador de Dados        N           S              Israel           ISR       ISR      {'00001-02-01540'}    {'ronam internacional imp exp ltda'}    {'enavis networks ltd'}    {'t  dax'}      {'t  dax'}   
+
+isequal(refTable(:,columnsIndex), rawDataTable(:,columnsIndex))
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+isequal(refTable(1:10,columnsIndex), rawDataTable(1:10,columnsIndex))
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   1
+
+isequal(refTable(1:1000,columnsIndex), rawDataTable(1:1000,columnsIndex))
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+isequal(refTable(1:100,columnsIndex), rawDataTable(1:100,columnsIndex))
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+isequal(refTable(1:50,columnsIndex), rawDataTable(1:50,columnsIndex))
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   1
+
+isequal(refTable(1:60,columnsIndex), rawDataTable(1:60,columnsIndex))
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+refTable(51:60,columnsIndex), rawDataTable(51:60,columnsIndex)
+
+ans =
+
+  10×16 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+       <strong>Homologação</strong>                                           <strong>Solicitante</strong>                                              <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Situação do Certificado</strong>          <strong>Situação</strong>                                 <strong>Fabricante</strong>                               <strong>Modelo</strong>           <strong>Nome Comercial</strong>       <strong>Categoria do Produto</strong>                            <strong>Tipo</strong>                            <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>    <strong>País do Fabricante</strong>    <strong>CodUIT</strong>    <strong>CodISO</strong>
+    <strong>__________________</strong>    <strong>_________________________________________________________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>_______________________</strong>    <strong>_____________________</strong>    <strong>______________________________________________________</strong>    <strong>________________</strong>    <strong>___________________</strong>    <strong>____________________</strong>    <strong>____________________________________________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>__________________</strong>    <strong>______</strong>    <strong>______</strong>
+
+    {'00002-23-14418'}    {'NEW COMEX IMPORT E EXPORT COMÉRCIO DE ELETRONICOS LTDA'                       }    {'33.252.488/0001-01'}             MODERNA-0728/22               Preenchimento Concluído    Homologação Emitida      {'Wuhua County Huacheng Yingtong Electronics Factory'}    {'XC95001'     }    {'XC95001-V8'     }             1              Carregador para Telefone Celular                            N           S             China             CHN       CHN  
+    {'00002-23-14418'}    {'NEW COMEX IMPORT E EXPORT COMÉRCIO DE ELETRONICOS LTDA'                       }    {'33.252.488/0001-01'}             MODERNA-0728/22               Preenchimento Concluído    Homologação Emitida      {'Wuhua County Huacheng Yingtong Electronics Factory'}    {'XC95001'     }    {'XC95001-TC'     }             1              Carregador para Telefone Celular                            N           S             China             CHN       CHN  
+    {'00002-23-15393'}    {'Amazonid Comercio de Equipamentos de Informatica e Servico de Tecnologia Ltda'}    {'30.155.273/0001-76'}             ABCP-OCD-22-0301              Preenchimento Concluído    Homologação Emitida      {'SMARTCN LIMITED'                                   }    {'IT-801C'     }    {'TABLET 8" EEVER'}             1              Estação Terminal de Acesso                                  N           S             China             CHN       CHN  
+    {'00002-23-15393'}    {'Amazonid Comercio de Equipamentos de Informatica e Servico de Tecnologia Ltda'}    {'30.155.273/0001-76'}             ABCP-OCD-22-0301              Preenchimento Concluído    Homologação Emitida      {'SMARTCN LIMITED'                                   }    {'IT-801C'     }    {'TABLET 8" EEVER'}             2              Transceptor de Radiação Restrita                            N           S             China             CHN       CHN  
+    {'00002-24-04444'}    {'Hikvision do Brasil Com de Equip de Seg Ltda'                                 }    {'15.431.830/0001-40'}             CPQD 11727                    Preenchimento Concluído    Homologação Emitida      {'Hangzhou Hikvision Digital Technology Co., Ltd.'   }    {'DS-TDSB0G-FK'}    {0×0 char         }             2              Equipamento de Radiocomunicação de Radiação Restrita        N           S             China             CHN       CHN  
+    {'00002-24-16471'}    {'Co3 Logistica Internacional Ltda'                                             }    {'80.329.071/0001-71'}             CPQD 11692                    Preenchimento Concluído    Homologação Emitida      {'Nubia Technology Co., Ltd.'                        }    {'NX769J'      }    {0×0 char         }             2              Transceptor de Radiação Restrita                            N           S             China             CHN       CHN  
+    {'00002-24-16471'}    {'Co3 Logistica Internacional Ltda'                                             }    {'80.329.071/0001-71'}             CPQD 11692                    Preenchimento Concluído    Homologação Emitida      {'Nubia Technology Co., Ltd.'                        }    {'NX769J'      }    {0×0 char         }             2              Sistemas de Identificação por Radiofrequências              N           S             China             CHN       CHN  
+    {'00002-24-16471'}    {'Co3 Logistica Internacional Ltda'                                             }    {'80.329.071/0001-71'}             CPQD 11692                    Preenchimento Concluído    Homologação Emitida      {'Nubia Technology Co., Ltd.'                        }    {'NX769J'      }    {0×0 char         }             1              Telefone Móvel Celular                                      N           S             China             CHN       CHN  
+    {'00003-02-01115'}    {'Nortel Networks Telecom do Brasil Com e Serv Ltda'                            }    {'01.993.432/0001-03'}             00801ARJ1115                  Preenchimento Concluído    Homologação Emitida      {'Nortel Networks Ltd.'                              }    {'TN-1C'       }    {'TN-1C'          }             3              Multiplex SDH - Equipamento STM-1                           N           S             Irlanda           IRL       IRL  
+    {'00003-03-01836'}    {'BenQ do Brasil Ltda.'                                                         }    {'05.130.814/0001-64'}             07502CAQ3022                  Suspenso                   Homologação Cancelada    {'BenQ Corporation Taoyuan Factory'                  }    {'ASU610'      }    {'ASU610'         }             1              Modem Digital XDSL                                          N           S             Taiwan            TWN       TWN  
+
+
+ans =
+
+  10×16 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+       <strong>Homologação</strong>                                           <strong>Solicitante</strong>                                              <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Situação do Certificado</strong>          <strong>Situação</strong>                                 <strong>Fabricante</strong>                               <strong>Modelo</strong>           <strong>Nome Comercial</strong>       <strong>Categoria do Produto</strong>                            <strong>Tipo</strong>                            <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>    <strong>País do Fabricante</strong>    <strong>CodUIT</strong>    <strong>CodISO</strong>
+    <strong>__________________</strong>    <strong>_________________________________________________________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>_______________________</strong>    <strong>_____________________</strong>    <strong>______________________________________________________</strong>    <strong>________________</strong>    <strong>___________________</strong>    <strong>____________________</strong>    <strong>____________________________________________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>__________________</strong>    <strong>______</strong>    <strong>______</strong>
+
+    {'00002-23-14418'}    {'NEW COMEX IMPORT E EXPORT COMÉRCIO DE ELETRONICOS LTDA'                       }    {'33.252.488/0001-01'}             MODERNA-0728/22               Preenchimento Concluído    Homologação Emitida      {'Wuhua County Huacheng Yingtong Electronics Factory'}    {'XC95001'     }    {'XC95001-V8'     }             1              Carregador para Telefone Celular                            N           S             China             CHN       CHN  
+    {'00002-23-14418'}    {'NEW COMEX IMPORT E EXPORT COMÉRCIO DE ELETRONICOS LTDA'                       }    {'33.252.488/0001-01'}             MODERNA-0728/22               Preenchimento Concluído    Homologação Emitida      {'Wuhua County Huacheng Yingtong Electronics Factory'}    {'XC95001'     }    {'XC95001-TC'     }             1              Carregador para Telefone Celular                            N           S             China             CHN       CHN  
+    {'00002-23-15393'}    {'Amazonid Comercio de Equipamentos de Informatica e Servico de Tecnologia Ltda'}    {'30.155.273/0001-76'}             ABCP-OCD-22-0301              Preenchimento Concluído    Homologação Emitida      {'SMARTCN LIMITED'                                   }    {'IT-801C'     }    {'TABLET 8" EEVER'}             1              Estação Terminal de Acesso                                  N           S             China             CHN       CHN  
+    {'00002-23-15393'}    {'Amazonid Comercio de Equipamentos de Informatica e Servico de Tecnologia Ltda'}    {'30.155.273/0001-76'}             ABCP-OCD-22-0301              Preenchimento Concluído    Homologação Emitida      {'SMARTCN LIMITED'                                   }    {'IT-801C'     }    {'TABLET 8" EEVER'}             2              Transceptor de Radiação Restrita                            N           S             China             CHN       CHN  
+    {'00002-24-04444'}    {'Hikvision do Brasil Com de Equip de Seg Ltda'                                 }    {'15.431.830/0001-40'}             CPQD 11727                    Preenchimento Concluído    Homologação Emitida      {'Hangzhou Hikvision Digital Technology Co., Ltd.'   }    {'DS-TDSB0G-FK'}    {0×0 char         }             2              Equipamento de Radiocomunicação de Radiação Restrita        N           S             China             CHN       CHN  
+    {'00002-24-16471'}    {'Co3 Logistica Internacional Ltda'                                             }    {'80.329.071/0001-71'}             CPQD 11692                    Preenchimento Concluído    Homologação Emitida      {'Nubia Technology Co., Ltd.'                        }    {'NX769J'      }    {0×0 char         }             2              Transceptor de Radiação Restrita                            N           S             China             CHN       CHN  
+    {'00002-24-16471'}    {'Co3 Logistica Internacional Ltda'                                             }    {'80.329.071/0001-71'}             CPQD 11692                    Preenchimento Concluído    Homologação Emitida      {'Nubia Technology Co., Ltd.'                        }    {'NX769J'      }    {0×0 char         }             1              Telefone Móvel Celular                                      N           S             China             CHN       CHN  
+    {'00002-24-16471'}    {'Co3 Logistica Internacional Ltda'                                             }    {'80.329.071/0001-71'}             CPQD 11692                    Preenchimento Concluído    Homologação Emitida      {'Nubia Technology Co., Ltd.'                        }    {'NX769J'      }    {0×0 char         }             2              Sistemas de Identificação por Radiofrequências              N           S             China             CHN       CHN  
+    {'00003-02-01115'}    {'Nortel Networks Telecom do Brasil Com e Serv Ltda'                            }    {'01.993.432/0001-03'}             00801ARJ1115                  Preenchimento Concluído    Homologação Emitida      {'Nortel Networks Ltd.'                              }    {'TN-1C'       }    {'TN-1C'          }             3              Multiplex SDH - Equipamento STM-1                           N           S             Irlanda           IRL       IRL  
+    {'00003-03-01836'}    {'BenQ do Brasil Ltda.'                                                         }    {'05.130.814/0001-64'}             07502CAQ3022                  Suspenso                   Homologação Cancelada    {'BenQ Corporation Taoyuan Factory'                  }    {'ASU610'      }    {'ASU610'         }             1              Modem Digital XDSL                                          N           S             Taiwan            TWN       TWN  
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+datestr(datetime('now'), "dd/mm/yyyy")
+
+ans =
+
+    '05/08/2024'
+
+SCHDataUpdate
+05-Aug-2024 23:20:17
+Tentativa de atualização da base de dados "SCHData.mat" iniciada.
+
+<a href="matlab: opentoline('D:\InovaFiscaliza\SCHDataUpdate\SCHDataUpdate.m',41,1)">41  </a>        rawDataTable = sortrows(rawDataTable, {'Homologação', 'Categoria do Produto', 'Tipo'});
+clc
+rawDataTable(51:60,setdiff(1:19, [1,6,7]))
+
+ans =
+
+  10×16 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+       <strong>Homologação</strong>                          <strong>Solicitante</strong>                             <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Situação do Certificado</strong>          <strong>Situação</strong>                                 <strong>Fabricante</strong>                                 <strong>Modelo</strong>               <strong>Nome Comercial</strong>        <strong>Categoria do Produto</strong>                            <strong>Tipo</strong>                            <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>    <strong>País do Fabricante</strong>    <strong>CodUIT</strong>    <strong>CodISO</strong>
+    <strong>__________________</strong>    <strong>_______________________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>_______________________</strong>    <strong>_____________________</strong>    <strong>______________________________________________________</strong>    <strong>_____________________</strong>    <strong>_____________________</strong>    <strong>____________________</strong>    <strong>____________________________________________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>__________________</strong>    <strong>______</strong>    <strong>______</strong>
+
+    {'02858-10-06548'}    {'DTC TRADING COMPANY LTDA.'                  }    {'05.448.850/0001-70'}          MT-0862/2010                     Suspenso                   Homologação Suspensa     {'Shantou City Chenghai Fengyuan Toys Industrial & C'}    {'FT-417'           }    {'FT-417'           }             2              Equipamento de Radiocomunicação de Radiação Restrita        N           S              China            CHN       CHN  
+    {'00050-03-01859'}    {'Canon do Brasil IndUstria e ComErcio LTDA.' }    {'46.266.771/0001-26'}          1163.TEL.1638.01.A.0/5           Suspenso                   Homologação Cancelada    {'Canon Zhuhai Inc'                                  }    {'imageCLASS 1100'  }    {'imageCLASS 1100'  }             1              Equipamento de Fac-Símile                                   N           S              China            CHN       CHN  
+    {'04453-14-07864'}    {'SouthPartner Ltda.'                         }    {'04.296.807/0001-74'}          NCC 11581/14                     Suspenso                   Homologação Suspensa     {'LEAX Arkivator Telecom AB'                         }    {'ANT2 0.3 18HPX'   }    {'ANT2 0.3 18HPX'   }             3              Antena Ponto a Ponto                                        S           S              Suécia           S         SWE  
+    {'04453-14-07864'}    {'SouthPartner Ltda.'                         }    {'04.296.807/0001-74'}          NCC 11581/14                     Suspenso                   Homologação Suspensa     {'LEAX Arkivator Telecom AB'                         }    {'ANT2 0.9 18HPX'   }    {'ANT2 0.9 18HPX'   }             3              Antena Ponto a Ponto                                        S           S              Suécia           S         SWE  
+    {'00051-03-01859'}    {'Canon do Brasil IndUstria e ComErcio LTDA.' }    {'46.266.771/0001-26'}          1163.TEL.1638.01.A.0/2           Suspenso                   Homologação Cancelada    {'Canon Zhuhai Inc'                                  }    {'Laser Class 1060P'}    {'Laser Class 1060P'}             1              Equipamento de Fac-Símile                                   N           S              China            CHN       CHN  
+    {'02106-07-04223'}    {'BRH REPRESENTAÇÃO COMERCIAL LTDA.'          }    {'07.479.382/0001-27'}          1209                             Suspenso                   Homologação Suspensa     {'Current Technologies International'                }    {'API-2000-GW'      }    {'API-2000-GW'      }             1              Transceptor PLC                                             N           S              Suíça            SUI       CHE  
+    {'00030-02-00256'}    {'Furukawa Electric Latam S.a.'               }    {'51.775.690/0001-91'}          0044                             Preenchimento Concluído    Homologação Emitida      {'Furukawa Electric Latam S.a.'                      }    {'CFOA-SM-DDR-G'    }    {'CFOA-SM-DDR-G'    }             3              Cabo de Fibras Ópticas                                      N           S              Brasil           BRA       BRA  
+    {'00139-06-02362'}    {'Livetech da Bahia Indústria e Comércio Ltda'}    {'05.917.486/0001-40'}          00547/05                         Suspenso                   Homologação Suspensa     {'Livetech da Bahia Indústria e Comércio Ltda'       }    {'SYSW-USBBG4020WA' }    {'SYSW-USBBG4020WA' }             2              Transceptor de Radiação Restrita - Híbrido                  N           N              Brasil           BRA       BRA  
+    {'03725-12-01931'}    {'D-Link Brasil Ltda'                         }    {'04.677.565/0001-69'}          NCC 9016/12                      Preenchimento Concluído    Homologação Emitida      {'D-Link Corporation'                                }    {'DGS-3120-48PC'    }    {'DGS-3120-48PC'    }             3              Equipamento de Rede de Dados                                N           S              Taiwan           TWN       TWN  
+    {'00019-02-00192'}    {'Nec Brasil S. A.'                           }    {'49.074.412/0002-46'}          NCC043/01                        Suspenso                   Homologação Cancelada    {'Nec Corporation'                                   }    {'TRP8G34MB'        }    {'TRP8G34MB'        }             3              Transceptor Digital                                         N           S              Japão            J         JPN  
+
+if system_dependent('IsDebugMode')==1, dbstep; end
+rawDataTable(51:60,setdiff(1:19, [1,6,7]))
+
+ans =
+
+  10×16 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+       <strong>Homologação</strong>                                           <strong>Solicitante</strong>                                              <strong>CNPJ/CPF</strong>           <strong>Certificado de Conformidade Técnica</strong>    <strong>Situação do Certificado</strong>          <strong>Situação</strong>                                 <strong>Fabricante</strong>                               <strong>Modelo</strong>           <strong>Nome Comercial</strong>       <strong>Categoria do Produto</strong>                            <strong>Tipo</strong>                            <strong>IC_ANTENA</strong>    <strong>IC_ATIVO</strong>    <strong>País do Fabricante</strong>    <strong>CodUIT</strong>    <strong>CodISO</strong>
+    <strong>__________________</strong>    <strong>_________________________________________________________________________________</strong>    <strong>______________________</strong>    <strong>___________________________________</strong>    <strong>_______________________</strong>    <strong>_____________________</strong>    <strong>______________________________________________________</strong>    <strong>________________</strong>    <strong>___________________</strong>    <strong>____________________</strong>    <strong>____________________________________________________</strong>    <strong>_________</strong>    <strong>________</strong>    <strong>__________________</strong>    <strong>______</strong>    <strong>______</strong>
+
+    {'00002-23-14418'}    {'NEW COMEX IMPORT E EXPORT COMÉRCIO DE ELETRONICOS LTDA'                       }    {'33.252.488/0001-01'}             MODERNA-0728/22               Preenchimento Concluído    Homologação Emitida      {'Wuhua County Huacheng Yingtong Electronics Factory'}    {'XC95001'     }    {'XC95001-V8'     }             1              Carregador para Telefone Celular                            N           S             China             CHN       CHN  
+    {'00002-23-14418'}    {'NEW COMEX IMPORT E EXPORT COMÉRCIO DE ELETRONICOS LTDA'                       }    {'33.252.488/0001-01'}             MODERNA-0728/22               Preenchimento Concluído    Homologação Emitida      {'Wuhua County Huacheng Yingtong Electronics Factory'}    {'XC95001'     }    {'XC95001-TC'     }             1              Carregador para Telefone Celular                            N           S             China             CHN       CHN  
+    {'00002-23-15393'}    {'Amazonid Comercio de Equipamentos de Informatica e Servico de Tecnologia Ltda'}    {'30.155.273/0001-76'}             ABCP-OCD-22-0301              Preenchimento Concluído    Homologação Emitida      {'SMARTCN LIMITED'                                   }    {'IT-801C'     }    {'TABLET 8" EEVER'}             1              Estação Terminal de Acesso                                  N           S             China             CHN       CHN  
+    {'00002-23-15393'}    {'Amazonid Comercio de Equipamentos de Informatica e Servico de Tecnologia Ltda'}    {'30.155.273/0001-76'}             ABCP-OCD-22-0301              Preenchimento Concluído    Homologação Emitida      {'SMARTCN LIMITED'                                   }    {'IT-801C'     }    {'TABLET 8" EEVER'}             2              Transceptor de Radiação Restrita                            N           S             China             CHN       CHN  
+    {'00002-24-04444'}    {'Hikvision do Brasil Com de Equip de Seg Ltda'                                 }    {'15.431.830/0001-40'}             CPQD 11727                    Preenchimento Concluído    Homologação Emitida      {'Hangzhou Hikvision Digital Technology Co., Ltd.'   }    {'DS-TDSB0G-FK'}    {0×0 char         }             2              Equipamento de Radiocomunicação de Radiação Restrita        N           S             China             CHN       CHN  
+    {'00002-24-16471'}    {'Co3 Logistica Internacional Ltda'                                             }    {'80.329.071/0001-71'}             CPQD 11692                    Preenchimento Concluído    Homologação Emitida      {'Nubia Technology Co., Ltd.'                        }    {'NX769J'      }    {0×0 char         }             1              Telefone Móvel Celular                                      N           S             China             CHN       CHN  
+    {'00002-24-16471'}    {'Co3 Logistica Internacional Ltda'                                             }    {'80.329.071/0001-71'}             CPQD 11692                    Preenchimento Concluído    Homologação Emitida      {'Nubia Technology Co., Ltd.'                        }    {'NX769J'      }    {0×0 char         }             2              Sistemas de Identificação por Radiofrequências              N           S             China             CHN       CHN  
+    {'00002-24-16471'}    {'Co3 Logistica Internacional Ltda'                                             }    {'80.329.071/0001-71'}             CPQD 11692                    Preenchimento Concluído    Homologação Emitida      {'Nubia Technology Co., Ltd.'                        }    {'NX769J'      }    {0×0 char         }             2              Transceptor de Radiação Restrita                            N           S             China             CHN       CHN  
+    {'00003-02-01115'}    {'Nortel Networks Telecom do Brasil Com e Serv Ltda'                            }    {'01.993.432/0001-03'}             00801ARJ1115                  Preenchimento Concluído    Homologação Emitida      {'Nortel Networks Ltd.'                              }    {'TN-1C'       }    {'TN-1C'          }             3              Multiplex SDH - Equipamento STM-1                           N           S             Irlanda           IRL       IRL  
+    {'00003-03-01836'}    {'BenQ do Brasil Ltda.'                                                         }    {'05.130.814/0001-64'}             07502CAQ3022                  Suspenso                   Homologação Cancelada    {'BenQ Corporation Taoyuan Factory'                  }    {'ASU610'      }    {'ASU610'         }             1              Modem Digital XDSL                                          N           S             Taiwan            TWN       TWN  
+
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+tic, fullfile(POSTFolder, 'SCHData.mat'), toc
+
+ans =
+
+    'D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat'
+
+Elapsed time is 0.008019 seconds.
+tic, fullfile(POSTFolder, 'SCHData_old.mat'), toc
+
+ans =
+
+    'D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData_old.mat'
+
+Elapsed time is 0.000739 seconds.
+save(fullfile(POSTFolder, 'SCHData.mat'), 'rawDataTable', 'releasedData', 'cacheData')
+tic, load(fullfile(POSTFolder, 'SCHData.mat')), toc
+Elapsed time is 4.442443 seconds.
+save(fullfile('D:\', 'SCHData.mat'), 'rawDataTable', 'releasedData', 'cacheData', '-nocompression')
+tic, load(fullfile('D:\', 'SCHData.mat')), toc
+Elapsed time is 3.275878 seconds.
+if system_dependent('IsDebugMode')==1, dbstep; end
+05-Aug-2024 23:28:07
+Base de dados "SCHData.mat" atualizada em 05/08/2024, sendo composta por 270049 linhas.
+
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbcont; end
+SCHDataUpdate
+05-Aug-2024 23:29:36
+Tentativa de atualização da base de dados "SCHData.mat" iniciada.
+
+<a href="matlab: opentoline('D:\InovaFiscaliza\SCHDataUpdate\SCHDataUpdate.m',40,1)">40  </a>        rawDataTable = vertcat(rawData.Table);
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbcont; end
+05-Aug-2024 23:30:13
+Dados idênticos ao da última extração.
+
+clc
+winSCH
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('fiscalizaLib/getPythonAttribute', 'C:\SupportPackages\fiscalizaLib.m', 93)" style="font-weight:bold">fiscalizaLib/getPythonAttribute</a> (<a href="matlab: opentoline('C:\SupportPackages\fiscalizaLib.m',93,0)">line 93</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('fiscalizaLib/updateIssue', 'C:\SupportPackages\fiscalizaLib.m', 76)" style="font-weight:bold">fiscalizaLib/updateIssue</a> (<a href="matlab: opentoline('C:\SupportPackages\fiscalizaLib.m',76,0)">line 76</a>)
+            obj.issueInfo = DataTypeMapping(obj, 'py2mat', getPythonAttribute(obj, obj.Issue, 'attrs'));
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('fiscalizaGUI/UploadFiscaliza', 'C:\SupportPackages\fiscalizaGUI.m', 74)" style="font-weight:bold">fiscalizaGUI/UploadFiscaliza</a> (<a href="matlab: opentoline('C:\SupportPackages\fiscalizaGUI.m',74,0)">line 74</a>)
+                    msg = char(updateIssue(obj, guiData));
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('winSCH/report_FiscalizaUpdate', 'D:\InovaFiscaliza\SCH\winSCH.mlapp', 1696)" style="font-weight:bold">winSCH/report_FiscalizaUpdate</a> (<a href="matlab: opentoline('D:\InovaFiscaliza\SCH\winSCH.mlapp',1696,0)">line 1696</a>)
+                UploadFiscaliza(app.fiscalizaObj)
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('winSCH/report_FiscalizaCallbacks', 'D:\InovaFiscaliza\SCH\winSCH.mlapp', 2934)" style="font-weight:bold">winSCH/report_FiscalizaCallbacks</a> (<a href="matlab: opentoline('D:\InovaFiscaliza\SCH\winSCH.mlapp',2934,0)">line 2934</a>)
+                    report_FiscalizaUpdate(app)
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('matlab.apps.AppBase>@(source,event)executeCallback(ams,app,callback,requiresEventData,event)', 'C:\Program Files\MATLAB\R2024a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m', 62)" style="font-weight:bold">matlab.apps.AppBase>@(source,event)executeCallback(ams,app,callback,requiresEventData,event)</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024a\toolbox\matlab\appdesigner\appdesigner\runtime\+matlab\+apps\AppBase.m',62,0)">line 62</a>)
+            newCallback = @(source, event)executeCallback(ams, ...
+} 
+Interrupt while evaluating Image PrivateImageClickedFcn.
+
+clc
+winSCH
+<a href="matlab: opentoline('D:\InovaFiscaliza\SCH\+reportLibConnection\Controller.m',69,1)">69  </a>                case 'final';   tempFullPath = class.Constants.DefaultFileName(app.config_Folder_UserPath.Value, 'Report', app.report_Issue.Value);
+if system_dependent('IsDebugMode')==1, dbcont; end
+edit fiscalizaGUI.m
+<a href="matlab: opentoline('C:\SupportPackages\fiscalizaGUI.m',417,1)">417 </a>                if ismember(fieldName, [renderizedFields'; obj.fields2Ignore(:,1)])
+editableFields
+
+editableFields = 
+
+  <a href="matlab:helpPopup('struct')" style="font-weight:bold">struct</a> with fields:
+
+                            status: [1×1 py.fiscaliza.datatypes.AtomicField]
+                       description: [1×1 py.fiscaliza.datatypes.AtomicField]
+                        start_date: [1×1 py.fiscaliza.datatypes.AtomicField]
+                          due_date: [1×1 py.fiscaliza.datatypes.AtomicField]
+                  tipo_de_inspecao: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+                fiscal_responsavel: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+                           fiscais: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+                       ufmunicipio: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+              servicos_da_inspecao: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+                   qtd_de_emissoes: [1×1 py.fiscaliza.datatypes.SimpleField]
+                     procedimentos: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+               horas_de_preparacao: [1×1 py.fiscaliza.datatypes.SimpleField]
+             horas_de_deslocamento: [1×1 py.fiscaliza.datatypes.SimpleField]
+                 horas_de_execucao: [1×1 py.fiscaliza.datatypes.SimpleField]
+                horas_de_conclusao: [1×1 py.fiscaliza.datatypes.SimpleField]
+                            no_sav: [1×1 py.fiscaliza.datatypes.SimpleField]
+                           no_pcdp: [1×1 py.fiscaliza.datatypes.SimpleField]
+                  nome_da_entidade: [1×1 py.fiscaliza.datatypes.SimpleField]
+               cnpjcpf_da_entidade: [1×1 py.fiscaliza.datatypes.SimpleField]
+       acao_de_risco_a_vida_criada: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+                frequencia_inicial: [1×1 py.fiscaliza.datatypes.SimpleField]
+     unidade_da_frequencia_inicial: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+                  frequencia_final: [1×1 py.fiscaliza.datatypes.SimpleField]
+       unidade_da_frequencia_final: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+              latitude_coordenadas: [1×1 py.fiscaliza.datatypes.SimpleField]
+             longitude_coordenadas: [1×1 py.fiscaliza.datatypes.SimpleField]
+           coordenacao_responsavel: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+                       agrupamento: [1×1 py.fiscaliza.datatypes.SimpleField]
+      no_sei_processo_fiscalizacao: [1×1 py.fiscaliza.datatypes.EncodedString]
+    no_sei_relatorio_de_atividades: [1×1 py.fiscaliza.datatypes.SimpleField]
+     precisa_reservar_instrumentos: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+        utilizou_algum_instrumento: [1×1 py.fiscaliza.datatypes.FieldWithOptions]
+                   qtd_licenciadas: [1×1 py.fiscaliza.datatypes.SimpleField]
+                 qtd_identificadas: [1×1 py.fiscaliza.datatypes.SimpleField]
+
+editableFields.cnpjcpf_da_entidade
+
+ans = 
+
+  Python <a href="matlab:helpPopup('py.fiscaliza.datatypes.SimpleField')" style="font-weight:bold">SimpleField</a> with properties:
+
+           dtype: [1×6 py.str]
+            name: [1×21 py.str]
+              id: [1×1 py.int]
+           value: [1×1 py.int]
+        multiple: 0
+       mandatory: 0
+    format_value: 0
+
+    (value: 27865757000102)
+
+  <a href="matlab:if exist('ans', 'var'),matlab.display.internal.getDebugObjectDisplay('ans', ans, 'py.fiscaliza.datatypes.SimpleField'), else, matlab.display.internal.getDebugObjectDisplay('ans'), end">Show all accessible properties of SimpleField</a>
+
+editableFields.cnpjcpf_da_entidade.value
+{Python Error: TypeError: 'cached_property' object is not callable
+} 
+clc
+if system_dependent('IsDebugMode')==1, dbquit; end
