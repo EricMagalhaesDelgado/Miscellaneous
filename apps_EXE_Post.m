@@ -1,48 +1,57 @@
-function apps_EXE_Post(prjName, rootFolder, matlabRuntimeCache, spashscreenFolder)
+function apps_EXE_Post(projectName, rootProjectFolders, rootCompiledVersions, matlabRuntimeCache)
 
+    % Trata-se de script a ser executado posteriormente à compilação das
+    % versões desktop e webapp de aplicativos construídos no MATLAB.
+
+    % Release: MATLAB R2024a Update6
+    % Data...: 13/01/2025
+    
     arguments
-        prjName            char {mustBeMember(prjName, {'appAnalise', 'appColeta', 'SCH'})} = 'appColeta'
-        rootFolder         char = 'D:\InovaFiscaliza'
-        matlabRuntimeCache char = 'E:\MATLAB Runtime\MATLAB Runtime (Custom)\R2024a'
-        spashscreenFolder  char = 'D:\_Versões Compiladas dos Apps\%appName%\Desktop'
+        projectName          char {mustBeMember(projectName, {'appAnalise', 'appColeta', 'SCH', 'monitorRNI'})} = 'monitorRNI'
+        rootProjectFolders   char = 'D:\InovaFiscaliza'
+        rootCompiledVersions char = 'D:\_Versões Compiladas dos Apps'
+        matlabRuntimeCache   char = 'E:\MATLAB Runtime\MATLAB Runtime (Custom)\R2024a'        
     end
 
-    % !! COMPILAÇÃO !!
-    % Release: MATLAB R2024a Update6
-    % Data...: 06/10/2024
-    
-    % appAnalise: 35000	35002 35003 35010 35108 35111 35117 35119 35136       35180       (Compilado no MATLAB R2024a em 04/10/2024)
-    % appColeta.: 35000	35002 35003	35010 35108	35111       35119 35136 35162 35180	      (Compilado no MATLAB R2024a em 09/12/2024)
-    % SCH.......: 35000	35002 35003	35010 35108	35111       35119 35136       35180 35256 (Compilado no MATLAB R2024a em 04/10/2024)
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % MAPEAMENTO DE PASTAS                                                %
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    initFolder = pwd;
 
-    % IDList =   [35000 35002 35003 35010 35108 35111 35117 35119 35136 35162 35180 35256]
-
-    initialFolder = pwd;
-
-    prjPath  = fullfile(rootFolder, prjName);
+    prjPath    = fullfile(rootProjectFolders, projectName);
     cd(prjPath)
     
-    appName     = class.Constants.appName;
-    appRelease  = class.Constants.appRelease;
-    appVersion  = class.Constants.appVersion;
-    
-    fileName = [appName '.exe'];
-    codeRepo = ['https://github.com/InovaFiscaliza/' prjName]; 
-    
-    switch prjName
-        case 'appColeta'
-            customFiles = {'switchList.json', 'EMSatLib.json', 'GPSLib.json', 'instrumentList.json', 'mask.csv', 'taskList.json'};
-        otherwise
-            customFiles = {};
-    end
-    
-    % % path rename
-    oldPath  = fullfile(prjPath, [prjName '_desktopCompiler'], 'for_redistribution_files_only');
-    testPath = fullfile(prjPath, [prjName '_desktopCompiler'], 'for_testing');
-    newPath  = fullfile(prjPath, [prjName '_desktopCompiler'], 'application');
+    appName    = class.Constants.appName;
+    appRelease = class.Constants.appRelease;
+    appVersion = class.Constants.appVersion;
 
-    % É necessário gerar uma nova versão customizada do MATLAB Runtime?!
-    fileContent  = strsplit(strtrim(fileread(fullfile(testPath, 'requiredMCRProducts.txt'))), '\t');
+    % No processo de compilação da versão desktop, o MATLAB cria as pastas 
+    % "for_redistribution", "for_redistribution_files_only" e "for_testing", 
+    % além do arquivo "PackagingLog.html"    
+    desktopCompilerFolder = fullfile(prjPath, [projectName '_desktopCompiler']);
+    desktopCompilerOld    = fullfile(desktopCompilerFolder, 'for_redistribution_files_only');
+    desktopCompilerTest   = fullfile(desktopCompilerFolder, 'for_testing');
+    desktopCompilerNew    = fullfile(desktopCompilerFolder, 'application');
+
+    % No processo de compilação da versão webapp, o MATLAB cria os arquivos
+    % "includedSupportPackages.txt", "mccExcludedFiles.log", "monitorRNI.ctf" 
+    % (no caso do monitorRNI), "PackagingLog.html", "requiredMCRProducts.txt" 
+    % e "unresolvedSymbols.txt".
+    webappCompilerFolder  = fullfile(prjPath, [projectName '_webappCompiler']);
+
+    % Pastas p/ as quais serão movidos os arquivos compilados que irão compor
+    % as versões de distribuição dos apps:
+    appCompiledVersions   = fullfile(rootCompiledVersions, projectName);
+    desktopFinalFolder    = fullfile(appCompiledVersions, 'Desktop');
+    webappFinalFolder     = fullfile(appCompiledVersions, 'Webapp');
+    
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % VERSÃO DESKTOP                                                      %
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % 1/7: CONFIRMA SE A VERSÃO CUSTOMIZADA DO MATLAB RUNTIME CONTÉM TODOS OS 
+    % MÓDULOS NECESSÁRIOS P/ CORRETA EXECUÇÃO DO APP.    
+    fileContent  = strsplit(strtrim(fileread(fullfile(desktopCompilerTest, 'requiredMCRProducts.txt'))), '\t');
     mcrProducts  = cellfun(@(x) int64(str2double(x)), fileContent);
 
     cacheContent = dir(fullfile(matlabRuntimeCache, '*.zip'));
@@ -55,32 +64,53 @@ function apps_EXE_Post(prjName, rootFolder, matlabRuntimeCache, spashscreenFolde
         end
     end
 
-    % Aqui continua...
-    movefile(oldPath, newPath, 'f');
+    % 2/7: TROCA O NOME DA PASTA DE "for_redistribution_files_only" PARA "application"    
+    movefile(desktopCompilerOld, desktopCompilerNew, 'f');
 
-    switch prjName
+    % 3/7: ATUALIZA BASES DE DADOS QUE SUPORTAM O APP, CASO APLICÁVEL.
+    switch projectName
+        case 'appAnalise'
+            % ... (pendente "RFDataHub")
+        case 'appColeta'
+            % ...
         case 'SCH'
-            if isfile('D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat')
-                copyfile('D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat', fullfile(newPath, 'DataBase', 'SCHData.mat'), 'f');
+            databaseFile = 'D:\OneDrive - ANATEL\DataHub - GET\SCH\SCHData.mat';
+            if isfile(databaseFile)
+                copyfile(databaseFile, fullfile(desktopCompilerNew, 'DataBase', 'SCHData.mat'), 'f');
             end
+        case 'monitorRNI'
+            databaseFile = 'C:\ProgramData\ANATEL\monitorRNI\RFDataHub.mat';
+            if isfile(databaseFile)
+                copyfile(databaseFile, fullfile(desktopCompilerNew, 'Settings', 'RFDataHub.mat'), 'f');
+            end            
+    end
+
+    % 4/7: EXCLUI ARQUIVO GERADO NA COMPILAÇÃO "splash.png".
+    cd(desktopCompilerNew)
+    delete('splash.png')    
+
+    % 5/7: CRIA ARQUIVO DE INTEGRIDADE "appIntegrity.json", O QUAL SERÁ INSPECIONADO 
+    % PELO SPLASHSCREEN.
+    fileName = [appName '.exe'];
+    codeRepo = ['https://github.com/InovaFiscaliza/' projectName]; 
+    
+    switch projectName
+        case 'appColeta'
+            customFiles = {'switchList.json', 'EMSatLib.json', 'GPSLib.json', 'instrumentList.json', 'mask.csv', 'taskList.json'};
         otherwise
-            % Pendente
+            customFiles = {};
     end
     
-    % % splash.png delete
-    cd(newPath)
-    delete('splash.png')
-    
-    % % Executable file hash
+    % Executable file hash
     [~, cmdout] = system(sprintf('certUtil -hashfile %s.exe SHA256', appName));
     cmdout = strsplit(cmdout, '\n');
     exeHash = cmdout{2};
     
-    % % Executable file size
+    % Executable file size
     fileObj = dir(fileName);    
     exeSize = uint32(fileObj.bytes);
     
-    % % appIntegrity.json
+    % appIntegrity.json
     appIntegrity = struct('appName',     appName,       ...
                           'appRelease',  appRelease,    ...
                           'appVersion',  appVersion,    ...
@@ -90,31 +120,42 @@ function apps_EXE_Post(prjName, rootFolder, matlabRuntimeCache, spashscreenFolde
                           'fileHash',    exeHash,       ...
                           'fileSize',    exeSize);
     
-    writematrix(jsonencode(appIntegrity, 'PrettyPrint', true), fullfile(newPath, 'Settings', 'appIntegrity.json'), 'FileType', 'text', 'QuoteStrings', 'none')
-    
-    % % zip file
-    zipProcess(newPath, sprintf('%s_Matlab.zip', appName))
+    writematrix(jsonencode(appIntegrity, 'PrettyPrint', true), fullfile(desktopCompilerNew, 'Settings', 'appIntegrity.json'), 'FileType', 'text', 'QuoteStrings', 'none')
 
-    % % Mescla com o splashscreen, criando as versões finais.
-    spashscreenFolder = replace(spashscreenFolder, '%appName%', prjName);
+    % 6/7: CRIA ARQUIVO ZIPADO QUE POSSIBILITARÁ A ATUALIZAÇÃO DO APLICATIVO
+    %          POR MEIO DO SPLASHSCREEN.
+    zipProcess(desktopCompilerNew, sprintf('%s_Matlab.zip', appName))
 
-    if isfolder(fullfile(spashscreenFolder, 'application'))
-        rmdir(fullfile(spashscreenFolder, 'application'), 's')
+    % 7/7: ORGANIZA PASTA LOCAL QUE ARMAZENA VERSÕES COMPILADAS DO APLICATIVO.
+    if isfolder(fullfile(desktopFinalFolder, 'application'))
+        rmdir(fullfile(desktopFinalFolder, 'application'), 's')
     end
     
-    delete(fullfile(fileparts(spashscreenFolder), sprintf('%s.zip', appName)))
-    delete(fullfile(fileparts(spashscreenFolder), sprintf('%s_Matlab.zip', appName)))
+    delete(fullfile(appCompiledVersions, sprintf('%s.zip', appName)))
+    delete(fullfile(appCompiledVersions, sprintf('%s_Matlab.zip', appName)))
 
-    movefile(fullfile(fileparts(newPath), sprintf('%s_Matlab.zip', appName)), fileparts(spashscreenFolder), 'f')
-    movefile(newPath, fullfile(spashscreenFolder, 'application'), 'f')
-    zipProcess(spashscreenFolder, sprintf('%s.zip', appName))    
+    movefile(fullfile(desktopCompilerFolder, sprintf('%s_Matlab.zip', appName)), appCompiledVersions, 'f')
+    movefile(desktopCompilerNew, fullfile(desktopFinalFolder, 'application'), 'f')
+    zipProcess(desktopFinalFolder, sprintf('%s.zip', appName))    
 
-    % % Apaga arquivos gerados pelo MATLAB, no processo de compilação, mas
-    % que não são úteis neste contexto. Evita ter que exclui-los no GitHub.
-    deleteTrash(fileparts(newPath))
 
-    % % Finaliza na pasta onde estarão os arquivos zipados...
-    cd(initialFolder)
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % VERSÃO WEBAPP                                                       %
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    if isfolder(webappCompilerFolder)
+        copyfile(webappCompilerFolder, webappFinalFolder, 'f')
+    end
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % EXCLUI ARQUIVOS NÃO MAIS NECESSÁRIOS                                %
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    deleteTrash(desktopCompilerFolder)
+    if isfolder(webappCompilerFolder)
+        deleteTrash(webappCompilerFolder)
+    end
+
+    cd(initFolder)
 end
 
 

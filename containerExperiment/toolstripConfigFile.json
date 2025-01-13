@@ -1,0 +1,144 @@
+{
+  "Tab": {
+    "TAB #1": [
+      "Section A",
+      "Section B",
+      "Section C"
+    ]
+  },
+  "Components": [
+    {
+      "Type": "Button",
+      "Group": "",
+      "appProperty": 0,
+      "appPropertyName": "",
+      "PositionID": 1111,
+      "ColumnWidth": "40",
+      "ColumnAlign": "auto",
+      "Parameters": {
+        "Text": "Open\nFile",
+        "Icon": "Icon.OPEN_24",
+        "ButtonPushedFcn": "uniqueCallbackFcn"
+      }
+    },
+    {
+      "Type": "Button",
+      "Group": "",
+      "appProperty": 1,
+      "appPropertyName": "File_SpectralData",
+      "PositionID": 1121,
+      "ColumnWidth": "40",
+      "ColumnAlign": "auto",
+      "Parameters": {
+        "Text": "Compare\nFile",
+        "Icon": "Icon.COMPARE_24",
+        "Enabled": false,
+        "ButtonPushedFcn": "uniqueCallbackFcn"
+      }
+    },
+    {
+      "Type": "Button",
+      "Group": "",
+      "appProperty": 1,
+      "appPropertyName": "File_EditLocation",
+      "PositionID": 1211,
+      "ColumnWidth": "auto",
+      "ColumnAlign": "auto",
+      "Parameters": {
+        "Text": "Browse file",
+        "Icon": "Icon.BROWSE_24",
+        "Enabled": false,
+        "ButtonPushedFcn": "uniqueCallbackFcn"
+      }
+    },
+    {
+      "Type": "Button",
+      "Group": "",
+      "appProperty": 1,
+      "appPropertyName": "File_Export",
+      "PositionID": 1212,
+      "ColumnWidth": "auto",
+      "ColumnAlign": "auto",
+      "Parameters": {
+        "Text": "Export",
+        "Icon": "Icon.EXPORT_16",
+        "Enabled": false,
+        "ButtonPushedFcn": "uniqueCallbackFcn"
+      }
+    },
+    {
+      "Type": "Gallery",
+      "Group": "",
+      "appProperty": 0,
+      "appPropertyName": "",
+      "PositionID": 1311,
+      "ColumnWidth": "auto",
+      "ColumnAlign": "auto",
+      "Parameters": {
+        "MaxColumnCount": 5,
+        "Children": [
+          {
+            "Type": "GalleryItem",
+            "Group": "My category 1",
+            "Parameters": {
+              "Text": "Import",
+              "Icon": "Icon.IMPORT_24",
+              "Description": "Description 1...",
+              "ItemPushedFcn": "uniqueCallbackFcn"
+            }
+          },
+          {
+            "Type": "GalleryItem",
+            "Group": "My category 1",
+            "Parameters": {
+              "Text": "Export",
+              "Icon": "Icon.EXPORT_24",
+              "Description": "Description 2...",
+              "ItemPushedFcn": "uniqueCallbackFcn"
+            }
+          },
+          {
+            "Type": "GalleryItem",
+            "Group": "My category 2",
+            "Parameters": {
+              "Text": "Print",
+              "Icon": "Icon.PRINT_24",
+              "Description": "Description 3...",
+              "ItemPushedFcn": "uniqueCallbackFcn"
+            }
+          },
+          {
+            "Type": "GalleryItem",
+            "Group": "My category 2",
+            "Parameters": {
+              "Text": "Properties",
+              "Icon": "Icon.PROPERTIES_24",
+              "Description": "Description 4...",
+              "ItemPushedFcn": "uniqueCallbackFcn"
+            }
+          },
+          {
+            "Type": "GalleryItem",
+            "Group": "My category 2",
+            "Parameters": {
+              "Text": "Lock",
+              "Icon": "Icon.LOCK_24",
+              "Description": "Description 5...",
+              "ItemPushedFcn": "uniqueCallbackFcn"
+            }
+          },
+          {
+            "Type": "GalleryItem",
+            "Group": "My category 2",
+            "Parameters": {
+              "Text": "GoTo",
+              "Icon": "Icon.GOTO_24",
+              "Description": "Description 6...",
+              "ItemPushedFcn": "uniqueCallbackFcn"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
