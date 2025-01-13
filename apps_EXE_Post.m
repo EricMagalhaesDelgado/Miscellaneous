@@ -10,7 +10,7 @@ function apps_EXE_Post(projectName, rootProjectFolders, rootCompiledVersions, ma
         projectName          char {mustBeMember(projectName, {'appAnalise', 'appColeta', 'SCH', 'monitorRNI'})} = 'monitorRNI'
         rootProjectFolders   char = 'D:\InovaFiscaliza'
         rootCompiledVersions char = 'D:\_Versões Compiladas dos Apps'
-        matlabRuntimeCache   char = 'E:\MATLAB Runtime\MATLAB Runtime (Custom)\R2024a'        
+        matlabRuntimeCache   char = 'E:\MATLAB Runtime\MATLAB Runtime (Custom)\R2024a'
     end
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -50,17 +50,19 @@ function apps_EXE_Post(projectName, rootProjectFolders, rootCompiledVersions, ma
     % VERSÃO DESKTOP                                                      %
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % 1/7: CONFIRMA SE A VERSÃO CUSTOMIZADA DO MATLAB RUNTIME CONTÉM TODOS OS 
-    % MÓDULOS NECESSÁRIOS P/ CORRETA EXECUÇÃO DO APP.    
-    fileContent  = strsplit(strtrim(fileread(fullfile(desktopCompilerTest, 'requiredMCRProducts.txt'))), '\t');
-    mcrProducts  = cellfun(@(x) int64(str2double(x)), fileContent);
-
-    cacheContent = dir(fullfile(matlabRuntimeCache, '*.zip'));
-    for ii = 1:numel(cacheContent)
-        cacheFileString  = char(extractBetween(cacheContent(ii).name, 'InstallAgent_', '.zip'));
-        cacheFileProduts = compiler.internal.utils.hexString2RuntimeProducts(cacheFileString);
-
-        if any(~ismember(mcrProducts, cacheFileProduts))
-            warning('Necessário atualizar a versão customizada do MATLAB Runtime.')
+    % MÓDULOS NECESSÁRIOS P/ CORRETA EXECUÇÃO DO APP.
+    if isfolder(matlabRuntimeCache)
+        fileContent  = strsplit(strtrim(fileread(fullfile(desktopCompilerTest, 'requiredMCRProducts.txt'))), '\t');
+        mcrProducts  = cellfun(@(x) int64(str2double(x)), fileContent);
+    
+        cacheContent = dir(fullfile(matlabRuntimeCache, '*.zip'));
+        for ii = 1:numel(cacheContent)
+            cacheFileString  = char(extractBetween(cacheContent(ii).name, 'InstallAgent_', '.zip'));
+            cacheFileProduts = compiler.internal.utils.hexString2RuntimeProducts(cacheFileString);
+    
+            if any(~ismember(mcrProducts, cacheFileProduts))
+                warning('Necessário atualizar a versão customizada do MATLAB Runtime.')
+            end
         end
     end
 
