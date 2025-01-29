@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommandArguments>"D:\OneDrive - ANATEL\Anatel\_Sentinela\CellPlan\CWSM21100020_E2_A1_Spec Frq=98.000 Span=20.000 RBW=20.000 [2022-09-25,22-51-29-074-0329].dBm"</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LocalDebuggerCommandArguments>"D:\OneDrive - ANATEL\Anatel\_Sentinela\CellPlan\CWSM21100020_E2_A1_Spec Frq=98.000 Span=20.000 RBW=20.000 [2022-09-25,22-51-29-074-0329].dBm"</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+</Project>

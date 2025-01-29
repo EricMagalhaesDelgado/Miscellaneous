@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="CellPlan_dBmReader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="IQ_dBm_FileReader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CellPlan_dBmFile.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IQ_dBm_FileReader.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{8ab996d6-ac68-42b6-8f6d-c167fec3ae40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{543572f7-3aba-444b-a707-47ffd362c7c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DLLs">
+      <UniqueIdentifier>{e00cb1fd-c2da-49a6-899d-af4f6908f5c7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="blas_win64_MT.dll">
+      <Filter>DLLs</Filter>
+    </None>
+    <None Include="CelZip64.dll">
+      <Filter>DLLs</Filter>
+    </None>
+    <None Include="IQ_dBm_FileReader.dll">
+      <Filter>DLLs</Filter>
+    </None>
+    <None Include="lapack_win64_MT.dll">
+      <Filter>DLLs</Filter>
+    </None>
+    <None Include="libopenblas.dll">
+      <Filter>DLLs</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommandArguments>"E:\SpecFiles\Combo10 (CellPlan)\CWSM22010038_E4_A1_Spec Frq=584.000 Span=228.000 RBW=100.00000 [2025-01-23,05-54-11-205-8052].dBm" "E:\TempBinFile.bin"</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LocalDebuggerCommandArguments>"C:\InovaFiscaliza\CellPlan\DLLs\CWSM22010045_E4_A1_Spec Frq=584.000 Span=228.000 RBW=100.00000 [2024-06-19,15-38-59-701-0589].dBm"</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+</Project>
